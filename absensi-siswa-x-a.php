@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
-    <title>Siskolah - Kelas</title>
+    <title>Siskolah - Absensi Siswa X-A</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -27,6 +27,27 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    <!-- Buttons extension -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Buttons extension JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+
+    <!-- File export dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
 <body id="page-top">
 
@@ -49,7 +70,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -79,7 +100,7 @@
                 <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -115,7 +136,6 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
                         <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
@@ -129,14 +149,7 @@
                     <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Guru Mapel -->
-            <li class="nav-item">
-                <a class="nav-link" href="guru-mapel.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Guru Mapel</span></a>
-            </li>
-
-            <!-- Nav Item - Mapel -->
+            <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
                 <a class="nav-link" href="mata-pelajaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -148,7 +161,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
                     aria-expanded="true" aria-controls="collapseJadwalMapel">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Jadwal Mata Pelajaran</span>
+                    <span>Mata Pelajaran</span>
                 </a>
                 <div id="collapseJadwalMapel" class="collapse" aria-labelledby="headingJadwalMapel" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -175,7 +188,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Nilai Siswa
+                Aktivitas Sekolah
             </div>
 
             <!-- Nav Item - Absensi Guru -->
@@ -195,7 +208,7 @@
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -249,16 +262,37 @@
 
             <!-- Nav Item - Pengaduan -->
             <li class="nav-item">
-                <a class="nav-link" href="pengaduan.php">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pengaduan</span></a>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
             </li>
 
+
             <!-- Nav Item - Kritik & Saran -->
-            <li class="nav-item">
-                <a class="nav-link" href="kritik-saran.php">
+                        <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Kritik & Saran</span></a>
+                    <span>kritik-saran</span>
+                </a>
+
+                    <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
+                    </div>
+                </div>
             </li>
 
         </ul>
@@ -305,56 +339,32 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+                         <!-- Nav Item - Alerts -->
+<li class="nav-item dropdown no-arrow mx-1">
+    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-bell fa-fw"></i>
+
+        <!-- Counter - Alerts -->
+        <span class="badge badge-danger badge-counter" id="notifCount">0</span>
+    </a>
+
+    <!-- Dropdown - Alerts -->
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+        aria-labelledby="alertsDropdown">
+
+        <h6 class="dropdown-header">
+            Alerts Center
+        </h6>
+
+        <!-- Tempat menampilkan notifikasi -->
+        <div id="notifList">
+            <!-- isi notifikasi akan dimuat otomatis -->
+        </div>
+
+        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+    </div>
+</li>   
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -471,46 +481,29 @@
                     <!-- Header Page -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <!-- Judul Halaman -->
-                        <h1 class="h3 text-gray-800 mb-0">Kelas</h1>
+                        <h1 class="h3 text-gray-800 mb-0">absensi-siswa</h1>
 
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Data Kelas</li>
+                            <li class="breadcrumb-item active">Data Absensi Siswa</li>
                         </ol>
                     </div>
-
-                    <!-- ALERT SUKSES TAMBAH UPDATE HAPUS -->
-                    <?php
-                    function showAlert($status, $message) {
-                        if (isset($_GET['status']) && $_GET['status'] == $status) {
-                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">'
-                                . $message .
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Tutup">
-                                    <span aria-hidden="true">&times;</span>
-                                </button></div>';
-                        }
-                    }
-
-                    showAlert('added', 'Data kelas berhasil ditambah!');
-                    showAlert('updated', 'Data kelas berhasil diupdate!');
-                    showAlert('deleted', 'Data kelas berhasil dihapus!');
-                    ?>
 
                      <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <!-- Judul Card -->
-                            <h6 class="m-0 font-weight-bold text-primary">Tabel Data Kelas</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Tabel Data Absensi Siswa</h6>
 
                             <!-- Container tombol -->
                             <div class="d-flex align-items-center">
                                 <!-- Tombol Tambah Kelas -->
-                                <a href="tambah-kelas.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
+                                <a href="tambah-absensi-siswa-x-a.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-                                    <span class="text">Tambah Kelas</span>
+                                    <span class="text">Tambah Absensi Siswa<span>
                                 </a>
 
                                 <!-- Tombol Visibility Dropdown -->
@@ -525,22 +518,34 @@
                                     <div class="dropdown-menu p-3" aria-labelledby="dropdownVisibility">
                                         <div class="form-check">
                                             <input class="form-check-input col-toggle" type="checkbox" value="0" id="colID" checked>
-                                            <label class="form-check-label" for="colID">ID Kelas</label>
+                                            <label class="form-check-label" for="colID">ID Absensi </label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input col-toggle" type="checkbox" value="1" id="colNama" checked>
-                                            <label class="form-check-label" for="colNama">Nama Kelas</label>
+                                            <label class="form-check-label" for="colNama">Nisn</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colWali" checked>
-                                            <label class="form-check-label" for="colWali">Wali Kelas</label>
+                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colTanggalTanggapan" checked>
+                                            <label class="form-check-label" for="colTanggalTanggapan">Nama Siswa</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colEdit" checked>
+                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colJenis" checked>
+                                            <label class="form-check-label" for="colJenis">Tanggal</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colStatus" checked>
+                                            <label class="form-check-label" for="colTanggalTanggapan">Status</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="5" id="colKeterangan" checked>
+                                            <label class="form-check-label" for="colTanggalTanggapan">Keterangan</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="6" id="colEdit" checked>
                                             <label class="form-check-label" for="colEdit">Edit</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colHapus" checked>
+                                            <input class="form-check-input col-toggle" type="checkbox" value="7" id="colHapus" checked>
                                             <label class="form-check-label" for="colHapus">Hapus</label>
                                         </div>
                                     </div>
@@ -575,72 +580,72 @@
                             </div>
                         </div>
                         <div class="card-body">
-
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas</th>
-                                            <th>Wali Kelas</th>
+                                            <th>ID Absensi</th>
+                                            <th>Nisn</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Tanggal </th>
+                                            <th>Status</th>
+                                            <th>Keterangan</th>
                                             <th>Edit</th>
                                             <th>Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    //menampilkan data user
-                                    $sql="SELECT kelas.*, guru.nama_lengkap
-                                            FROM kelas
-                                            LEFT JOIN guru ON kelas.nip = guru.nip";
-                                    $query=mysqli_query($koneksi, $sql);
-                                    while($result=mysqli_fetch_array($query)) {
-                                        $kode = $result['id_kelas'];
-                                    ?>
-                                    <tr>
-                                        <td><?php echo$result['id_kelas']?></td>
-                                        <td><?php echo$result['nama_kelas']?></td>
-                                        <td><?php echo$result['nama_lengkap']?></td>
-                                        <td class="text-center">
-                                            <a href="update-kelas.php?id_kelas=<?php echo $result['id_kelas']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- Tombol hapus yang memicu modal -->
-                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal<?php echo $result['id_kelas']; ?>">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                    $sql = " SELECT a.id_absensi, a.nisn, s.nama_lengkap, a.tanggal, 
+                                    a.status, a.keterangan FROM absensi_siswa a JOIN siswa s 
+                                    ON a.nisn = s.nisn ORDER BY a.id_absensi DESC ";
 
-                                            <!-- Modal Hapus -->
-                                            <div class="modal fade" id="hapusModal<?php echo $result['id_kelas']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel<?php echo $result['id_kelas']; ?>" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">                                                            
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="hapusModalLabel<?php echo $result['id_kelas']; ?>">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        Apakah Anda yakin ingin menghapus data kelas <strong><?php echo $result['nama_kelas']; ?></strong>?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <a href="hapus-kelas.php?id_kelas=<?php echo $result['id_kelas']; ?>" class="btn btn-danger">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+
+                                    $query = mysqli_query($koneksi, $sql);
+
+                                    while($result = mysqli_fetch_array($query)) {
+                                        $kode = $result['id_absensi'];
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $result['id_absensi']; ?></td>
+                                            <td><?php echo $result['nisn']; ?></td>
+                                            <td><?php echo $result['nama_lengkap']; ?></td>
+                                            <td><?php echo $result['tanggal']; ?></td>
+                                            <td><?php echo $result['status']; ?></td>
+                                            <td><?php echo $result['keterangan']; ?></td>
+                                
+                                            
+                                        <td class="text-center">
+                                            <a href="edit-absensi-siswa.php?id_absensi=<?= $result['id_absensi']; ?>" 
+                                            class="btn btn-primary btn-sm" 
+                                            style="border-radius: 8px;">
+                                                <i class="fas fa-pen"></i> Edit
+                                            </a>
                                         </td>
-                                    </tr>
+
+                                        <td class="text-center">
+                                            <a href="hapus-absensi-siswa-x-a.php?id_absensi=<?= $result['id_absensi']; ?>" 
+                                            onclick="return confirm('Yakin ingin menghapus data ini?')" 
+                                            class="btn btn-danger btn-sm"
+                                            style="border-radius: 8px;">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </a>
+                                        </td>
+
+                                        </tr>
                                     <?php
-                                        }
+                                    }                 
                                     ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas</th>
-                                            <th>Wali Kelas</th>
+                                            <th>ID Absensi</th>
+                                            <th>Nisn</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Tanggal</th>
+                                            <th>Status</th>
+                                            <th>Keterangan</th>
                                             <th>Edit</th>
                                             <th>Hapus</th>  
                                         </tr>
@@ -695,6 +700,84 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Edit Pengaduan -->
+<div class="modal fade" id="modalEditPengaduan" tabindex="-1" role="dialog" aria-labelledby="modalEditLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="update-pengaduan.php" method="POST">
+      <div class="modal-content">
+        
+        <!-- HEADER BIRU -->
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalEditLabel">Edit Pengaduan</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <!-- ISI FORM -->
+        <div class="modal-body">
+          <!-- ID tersembunyi -->
+          <input type="hidden" name="id_pengaduan" id="edit_id_pengaduan">
+
+          <div class="form-group">
+            <label>Nama Siswa</label>
+            <input type="text" name="nama_siswa" id="edit_nama_siswa" class="form-control" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Judul Pengaduan</label>
+            <input type="text" name="judul_pengaduan" id="edit_judul_pengaduan" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>Isi Pengaduan</label>
+            <textarea name="isi_pengaduan" id="edit_isi_pengaduan" class="form-control" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Tanggapan Guru</label>
+            <textarea name="tanggapan" id="edit_tanggapan" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Tanggal Tanggapan</label>
+            <input type="date" name="tanggal_tanggapan" id="edit_tanggal_tanggapan" class="form-control">
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#dataTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'collection',
+                text: '<i class="fas fa-download"></i> Generate Report',
+                className: 'btn btn-primary dropdown-toggle',
+                buttons: [
+                    { extend: 'pdfHtml5', text: '<i class="far fa-file-pdf"></i> Export PDF', titleAttr: 'PDF' },
+                    { extend: 'excelHtml5', text: '<i class="far fa-file-excel"></i> Export Excel', titleAttr: 'Excel' },
+                    { extend: 'csvHtml5', text: '<i class="fas fa-file-csv"></i> Export CSV', titleAttr: 'CSV' },
+                    { extend: 'copyHtml5', text: '<i class="fas fa-copy"></i> Copy', titleAttr: 'Copy' },
+                    { extend: 'print', text: '<i class="fas fa-print"></i> Print', titleAttr: 'Print' }
+                ]
+            }
+        ]
+    });
+});
+</script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -763,6 +846,53 @@
     });
     </script>
 
+<!-- script edit-->
+<script>
+function editPengaduan(id, nama, judul, isi, tanggapan, tanggal) {
+  document.getElementById('edit_id_pengaduan').value = id;
+  document.getElementById('edit_nama_siswa').value = nama;
+  document.getElementById('edit_judul_pengaduan').value = judul;
+  document.getElementById('edit_isi_pengaduan').value = isi;
+  document.getElementById('edit_tanggapan').value = tanggapan;
+  document.getElementById('edit_tanggal_tanggapan').value = tanggal;
+}
+</script>
+
+<script>
+function loadNotif() {
+    fetch("notif.php")
+        .then(res => res.json())
+        .then(data => {
+            console.log(data); // CEK DI CONSOLE
+
+            document.getElementById("notifCount").innerText = data.count;
+
+            let listHtml = "";
+
+            data.items.forEach(n => {
+                listHtml += `
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">${n.tanggal}</div>
+                            <span class="font-weight-bold">${n.jenis}: ${n.judul}</span>
+                        </div>
+                    </a>
+                `;
+            });
+
+            document.getElementById("notifList").innerHTML = listHtml;
+        })
+        .catch(err => console.log("Fetch error:", err));
+}
+
+// jalan saat halaman selesai dimuat
+document.addEventListener("DOMContentLoaded", loadNotif);
+</script>
 
 </body>
 

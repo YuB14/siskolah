@@ -12,19 +12,16 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
-    <title>Siskolah - Kelas</title>
+    <title>Siskolah - Dashboard</title>
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -49,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -115,7 +112,6 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
                         <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
@@ -129,14 +125,7 @@
                     <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Guru Mapel -->
-            <li class="nav-item">
-                <a class="nav-link" href="guru-mapel.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Guru Mapel</span></a>
-            </li>
-
-            <!-- Nav Item - Mapel -->
+            <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
                 <a class="nav-link" href="mata-pelajaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -175,7 +164,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Nilai Siswa
+                Aktivitas Sekolah
             </div>
 
             <!-- Nav Item - Absensi Guru -->
@@ -195,7 +184,7 @@
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -222,7 +211,7 @@
                 <div id="collapseNilaiSiswa" class="collapse" aria-labelledby="headingNilaiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -248,17 +237,37 @@
             </div>
 
             <!-- Nav Item - Pengaduan -->
-            <li class="nav-item">
-                <a class="nav-link" href="pengaduan.php">
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pengaduan</span></a>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Kritik & Saran -->
-            <li class="nav-item">
-                <a class="nav-link" href="kritik-saran.php">
+                        <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Kritik & Saran</span></a>
+                    <span>kritik-saran</span>
+                </a>
+
+                    <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
+                    </div>
+                </div>
             </li>
 
         </ul>
@@ -305,56 +314,33 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
+                                                    <!-- Nav Item - Alerts -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-fw"></i>
+
+                                    <!-- Counter - Alerts -->
+                                    <span class="badge badge-danger badge-counter" id="notifCount">0</span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
+
+                                <!-- Dropdown - Alerts -->
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+
+                                    <h6 class="dropdown-header">
+                                        Alerts Center
+                                    </h6>
+
+                                    <!-- Tempat menampilkan notifikasi -->
+                                    <div id="notifList">
+                                        <!-- isi notifikasi akan dimuat otomatis -->
                                     </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                </div>
+                            </li>
+
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -460,216 +446,199 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <?php
-                //memanggil koneksi
-                include ('./library/koneksi.php');
-                ?>
-
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+<div class="container-fluid">
 
-                    <!-- Header Page -->
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <!-- Judul Halaman -->
-                        <h1 class="h3 text-gray-800 mb-0">Kelas</h1>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+        </a>
+    </div>
 
-                        <!-- Breadcrumb -->
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Data Kelas</li>
-                        </ol>
-                    </div>
+    <!-- Content Row -->
+    <div class="row">
 
-                    <!-- ALERT SUKSES TAMBAH UPDATE HAPUS -->
-                    <?php
-                    function showAlert($status, $message) {
-                        if (isset($_GET['status']) && $_GET['status'] == $status) {
-                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">'
-                                . $message .
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Tutup">
-                                    <span aria-hidden="true">&times;</span>
-                                </button></div>';
-                        }
-                    }
-
-                    showAlert('added', 'Data kelas berhasil ditambah!');
-                    showAlert('updated', 'Data kelas berhasil diupdate!');
-                    showAlert('deleted', 'Data kelas berhasil dihapus!');
-                    ?>
-
-                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <!-- Judul Card -->
-                            <h6 class="m-0 font-weight-bold text-primary">Tabel Data Kelas</h6>
-
-                            <!-- Container tombol -->
-                            <div class="d-flex align-items-center">
-                                <!-- Tombol Tambah Kelas -->
-                                <a href="tambah-kelas.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    <span class="text">Tambah Kelas</span>
-                                </a>
-
-                                <!-- Tombol Visibility Dropdown -->
-                                <div class="dropdown mr-2">
-                                    <button class="btn btn-sm btn-secondary dropdown-toggle btn-equal align-items-center" type="button" 
-                                            id="dropdownVisibility" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-eye mr-1"></i>
-                                        </span>
-                                        <span class="text">Visibility</span>
-                                    </button>
-                                    <div class="dropdown-menu p-3" aria-labelledby="dropdownVisibility">
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="0" id="colID" checked>
-                                            <label class="form-check-label" for="colID">ID Kelas</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="1" id="colNama" checked>
-                                            <label class="form-check-label" for="colNama">Nama Kelas</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colWali" checked>
-                                            <label class="form-check-label" for="colWali">Wali Kelas</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colEdit" checked>
-                                            <label class="form-check-label" for="colEdit">Edit</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colHapus" checked>
-                                            <label class="form-check-label" for="colHapus">Hapus</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Dropdown Generate Report -->
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-primary dropdown-toggle shadow-sm" href="#" 
-                                        id="dropdownReport" role="button" data-toggle="dropdown" 
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-download fa-sm text-white-50 mr-1"></i> Generate Report
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownReport">
-                                        <a class="dropdown-item export-pdf" href="#">
-                                            <i class="fas fa-file-pdf fa-sm text-danger mr-2"></i> Export PDF
-                                        </a>
-                                        <a class="dropdown-item export-excel" href="#">
-                                            <i class="fas fa-file-excel fa-sm text-success mr-2"></i> Export Excel
-                                        </a>
-                                        <a class="dropdown-item export-csv" href="#">
-                                            <i class="fas fa-file-csv fa-sm text-info mr-2"></i> Export CSV
-                                        </a>
-                                        <a class="dropdown-item export-copy" href="#">
-                                            <i class="fas fa-copy fa-sm text-dark mr-2"></i> Copy
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item export-print" href="#">
-                                            <i class="fas fa-print fa-sm text-primary mr-2"></i> Print
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas</th>
-                                            <th>Wali Kelas</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    //menampilkan data user
-                                    $sql="SELECT kelas.*, guru.nama_lengkap
-                                            FROM kelas
-                                            LEFT JOIN guru ON kelas.nip = guru.nip";
-                                    $query=mysqli_query($koneksi, $sql);
-                                    while($result=mysqli_fetch_array($query)) {
-                                        $kode = $result['id_kelas'];
-                                    ?>
-                                    <tr>
-                                        <td><?php echo$result['id_kelas']?></td>
-                                        <td><?php echo$result['nama_kelas']?></td>
-                                        <td><?php echo$result['nama_lengkap']?></td>
-                                        <td class="text-center">
-                                            <a href="update-kelas.php?id_kelas=<?php echo $result['id_kelas']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- Tombol hapus yang memicu modal -->
-                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal<?php echo $result['id_kelas']; ?>">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-
-                                            <!-- Modal Hapus -->
-                                            <div class="modal fade" id="hapusModal<?php echo $result['id_kelas']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel<?php echo $result['id_kelas']; ?>" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">                                                            
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="hapusModalLabel<?php echo $result['id_kelas']; ?>">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        Apakah Anda yakin ingin menghapus data kelas <strong><?php echo $result['nama_kelas']; ?></strong>?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <a href="hapus-kelas.php?id_kelas=<?php echo $result['id_kelas']; ?>" class="btn btn-danger">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                        }
-                                    ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas</th>
-                                            <th>Wali Kelas</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>  
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+        <!-- Card: Total Guru & Siswa -->
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-success shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+            Data Sekolah
+          </div>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">
+            Guru: <span id="total_guru">0</span><br>
+            Siswa: <span id="total_siswa">0</span>
+          </div>
         </div>
-        <!-- End of Content Wrapper -->
+        <div class="col-auto">
+          <i class="fas fa-users fa-2x text-gray-300"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <!-- Card Example: Pengaduan -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="pengaduan.php" style="text-decoration:none;">
+                <div class="card border-left-primary shadow h-100 py-2" style="cursor:pointer;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Pengaduan
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <span id="jumlah_pengaduan">0</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Card Example: Kritik Saran -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="kritik-saran.php" style="text-decoration:none;">
+                <div class="card border-left-primary shadow h-100 py-2" style="cursor:pointer;">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Kritik & Saran
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <span id="jumlah_kritik">0</span>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!--pembayaran spp-->
+        <div class="col-xl-3 col-md-6 mb-4">
+  <a href="pembayaran.php" style="text-decoration:none;">
+    <div class="card border-left-danger shadow h-100 py-2" style="cursor:pointer;">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+              SPP Belum Lunas
+            </div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">
+              <span id="jumlah_belum_lunas">0</span>
+            </div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
 
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- End Content Row -->
+
+    <!-- Charts Row -->
+    <div class="row">
+
+        <!-- Area Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Keuangan</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart Absensi -->
+<div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+        <!-- Card Header -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Absensi Siswa</h6>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="chart-pie pt-4 pb-2">
+                <canvas id="myPieChart"></canvas>
+            </div>
+            <div class="mt-4 text-center small">
+                <span class="mr-2">
+                    <i class="fas fa-circle text-primary"></i> Hadir
+                </span>
+                <span class="mr-2">
+                    <i class="fas fa-circle text-success"></i> Izin
+                </span>
+                <span class="mr-2">
+                    <i class="fas fa-circle text-warning"></i> Sakit
+                </span>
+                <span class="mr-2">
+                    <i class="fas fa-circle text-danger"></i> Alpa
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <!-- End Charts Row -->
+
+    <!-- Title Section -->
+    <div style="text-align:center; padding:60px 0; font-size:32px; font-weight:bold; color:#2c3e50;">
+        SISTEM INFORMASI SEKOLAH (SISKOLAH)
+    </div>
+
+    <!-- Footer Section: Fitur -->
+    <div style="
+        width:100%;
+        background:#f4f6f9;
+        padding:40px 0;
+        text-align:center;
+        border-top:1px solid #e0e0e0;
+        margin-top:40px;
+    ">
+        <h3 style="font-weight:bold; color:#2c3e50; margin-bottom:20px;">
+            <i class="fas fa-layer-group" style="margin-right:8px;"></i>
+            Menyediakan Fitur Fitur Unggulan
+        </h3>
+
+        <div style="font-size:16px; color:#444; line-height:1.8;">
+            <i class="fas fa-check-circle" style="color:#3498db;"></i> Manajemen Kelas<br>
+            <i class="fas fa-check-circle" style="color:#3498db;"></i> Data Guru dan Mapel<br>
+            <i class="fas fa-check-circle" style="color:#3498db;"></i> Absensi Siswa dan Guru<br>
+            <i class="fas fa-check-circle" style="color:#3498db;"></i> Sistem Nilai Siswa<br>
+            <i class="fas fa-check-circle" style="color:#3498db;"></i> Pengaduan dan Kritik Saran<br>
+            <i class="fas fa-check-circle" style="color:#3498db;"></i> Keuangan Sekolah (SPP, Subsidi, Keuangan)
+        </div>
+    </div>
+
+</div>
+<!-- End Container Fluid -->
+
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -707,62 +676,227 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    <script src="chart-keuangan.js"></script> 
 
-    <!-- DataTables Buttons CSS -->
-    <link rel="stylesheet" href="vendor/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-    <!-- DataTables Buttons JS -->
-    <script src="vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="vendor/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="vendor/datatables-buttons/js/buttons.print.min.js"></script>
-    <script src="vendor/jszip/jszip.min.js"></script>
-    <script src="vendor/pdfmake/pdfmake.min.js"></script>
-    <script src="vendor/pdfmake/vfs_fonts.js"></script>
+   <script>
+function loadNotif() {
+    fetch("notif.php")
+        .then(res => res.json())
+        .then(data => {
+            console.log(data); // CEK DI CONSOLE
 
-    <!-- Script custom toggle Visibility + hubungkan Generate Report -->
-    <script>
-    $(document).ready(function() {
-        // Cek apakah DataTable sudah diinisialisasi
-        var table;
-        if ( ! $.fn.DataTable.isDataTable('#dataTable') ) {
-            table = $('#dataTable').DataTable({
-                dom: 'Bfrtip', // menampilkan tombol DataTables
-                buttons: [
-                    { extend: 'pdfHtml5', text: 'Export PDF', className: 'd-none' },
-                    { extend: 'excelHtml5', text: 'Export Excel', className: 'd-none' },
-                    { extend: 'csvHtml5', text: 'Export CSV', className: 'd-none' },
-                    { extend: 'copyHtml5', text: 'Copy', className: 'd-none' },
-                    { extend: 'print', text: 'Print', className: 'd-none' }
-                ]
+            document.getElementById("notifCount").innerText = data.count;
+
+            let listHtml = "";
+
+            data.items.forEach(n => {
+                listHtml += `
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">${n.tanggal}</div>
+                            <span class="font-weight-bold">${n.jenis}: ${n.judul}</span>
+                        </div>
+                    </a>
+                `;
             });
-        } else {
-            table = $('#dataTable').DataTable();
-        }
 
-        // Hubungkan dropdown custom Generate Report
-        $('#dropdownReport .dropdown-item').each(function() {
-            var btnText = $(this).text().trim();
-            $(this).on('click', function(e){
-                e.preventDefault();
-                table.button(btnText).trigger();
-            });
+            document.getElementById("notifList").innerHTML = listHtml;
+        })
+        .catch(err => console.log("Fetch error:", err));
+}
+
+// jalan saat halaman selesai dimuat
+document.addEventListener("DOMContentLoaded", loadNotif);
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Fungsi bantu untuk fetch dengan pengecekan error
+  function ambilData(url, callback) {
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(data => callback(data))
+      .catch(err => console.error(`Gagal fetch ${url}:`, err));
+  }
+
+  // 🔹 Pengaduan
+  ambilData('kartu.php?tipe=pengaduan', data => {
+    const el = document.getElementById('jumlah_pengaduan');
+    if (el && data.total !== undefined) el.textContent = data.total;
+  });
+
+  // 🔹 Kritik
+  ambilData('kartu.php?tipe=kritik', data => {
+    const el = document.getElementById('jumlah_kritik');
+    if (el && data.total !== undefined) el.textContent = data.total;
+  });
+
+  // 🔹 Sekolah (Guru & Siswa)
+  ambilData('kartu.php?tipe=sekolah', data => {
+    const g = document.getElementById('total_guru');
+    const s = document.getElementById('total_siswa');
+    if (g && s && data.guru !== undefined && data.siswa !== undefined) {
+      g.textContent = data.guru;
+      s.textContent = data.siswa;
+    }
+  });
+
+  // SPP Belum Lunas
+fetch('kartu.php?tipe=spp_belum_lunas')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('jumlah_belum_lunas').textContent = data.total;
+  });
+});
+</script>
+
+<!--line chart-->
+<script>
+fetch('line.php')
+  .then(response => response.json())
+  .then(data => {
+      // Ambil data dari JSON hasil PHP
+      const labels = data.map(item => item.bulan); // ganti dari 'tanggal' ke 'bulan'
+      const pemasukan = data.map(item => item.pemasukan);
+      const pengeluaran = data.map(item => item.pengeluaran);
+
+      const ctx = document.getElementById('myAreaChart').getContext('2d');
+
+      new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: labels,
+              datasets: [
+                  {
+                      label: 'Pemasukan',
+                      data: pemasukan,
+                      borderColor: '#4e73df',
+                      backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                      borderWidth: 3,
+                      fill: true,
+                      tension: 0.3
+                  },
+                  {
+                      label: 'Pengeluaran',
+                      data: pengeluaran,
+                      borderColor: '#e74a3b',
+                      backgroundColor: 'rgba(231, 74, 59, 0.1)',
+                      borderWidth: 3,
+                      fill: true,
+                      tension: 0.3
+                  }
+              ]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      position: 'top',
+                      labels: {
+                          boxWidth: 15,
+                          padding: 20
+                      }
+                  },
+                  title: {
+                      display: true,
+                      text: 'Grafik Keuangan Bulanan'
+                  }
+              },
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      title: {
+                          display: true,
+                          text: 'Jumlah (Rp)'
+                      }
+                  },
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Bulan'
+                      }
+                  }
+              }
+          }
+      });
+  })
+  .catch(error => console.error('Error:', error));
+</script>
+
+<script>
+  // Pie Chart Absensi
+  fetch('pie.php')
+    .then(response => response.json())
+    .then(data => {
+        // Ambil label dan jumlah dari hasil JSON
+        const labels = data.map(item => item.status);
+        const values = data.map(item => item.jumlah);
+
+        // Hitung total semua kehadiran
+        const total = values.reduce((a, b) => a + b, 0);
+
+        const ctx = document.getElementById('myPieChart');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: [
+                        '#4e73df', // Hadir
+                        '#1cc88a', // Izin
+                        '#f6c23e', // Sakit
+                        '#e74a3b'  // Alpa
+                    ],
+                    hoverBackgroundColor: [
+                        '#2e59d9',
+                        '#17a673',
+                        '#dda20a',
+                        '#c0392b'
+                    ],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)"
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        display: true,
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const percent = ((context.raw / total) * 100).toFixed(1);
+                                return `${context.label}: ${context.raw} (${percent}%)`;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Statistik Kehadiran Siswa'
+                    }
+                }
+            }
         });
-
-        // Toggle kolom Visibility
-        $('.col-toggle').on('change', function() {
-            var colIndex = $(this).val();
-            var column = table.column(colIndex);
-            column.visible($(this).is(':checked'));
-        });
-    });
-    </script>
-
+    })
+    .catch(error => console.error('Error:', error));
+</script>
 
 </body>
 

@@ -12,16 +12,19 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
-    <title>Siskolah - Dashboard</title>
+    <title>Siskolah - SPP Kelas X-A</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -76,7 +79,7 @@
                 <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="spp-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -112,7 +115,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="bidodata-admin.php">Admin</a>
+                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
                         <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
@@ -126,7 +129,7 @@
                     <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Mapel -->
+            <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
                 <a class="nav-link" href="mata-pelajaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -250,6 +253,8 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Kritik & Saran</span></a>
             </li>
+
+            
 
         </ul>
         <!-- End of Sidebar -->
@@ -438,7 +443,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -450,334 +455,240 @@
                 </nav>
                 <!-- End of Topbar -->
 
+                <?php
+                //memanggil koneksi
+                include ('./library/koneksi.php');
+                ?>
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    <!-- Header Page -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <!-- Judul Halaman -->
+                        <h1 class="h3 text-gray-800 mb-0">SPP Kelas X-A</h1>
+
+                        <!-- Breadcrumb -->
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Data SPP Kelas X-A</li>
+                        </ol>
                     </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
+                    <!-- ALERT SUKSES TAMBAH UPDATE HAPUS -->
+                    <?php
+                    function showAlert($status, $message) {
+                        if (isset($_GET['status']) && $_GET['status'] == $status) {
+                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">'
+                                . $message .
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Tutup">
+                                    <span aria-hidden="true">&times;</span>
+                                </button></div>';
+                        }
+                    }
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                    showAlert('added', 'Data SPP kelas X-A berhasil ditambah!');
+                    showAlert('updated', 'Data SPP kelas X-A diupdate!');
+                    showAlert('deleted', 'Data SPP kelas X-A dihapus!');
+                    ?>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                            <!-- Judul Card -->
+                            <h6 class="m-0 font-weight-bold text-primary">Tabel Data SPP Kelas X-A</h6>
+
+                            <!-- Container tombol -->
+                            <div class="d-flex align-items-center">
+                                <!-- Tombol Tambah Kelas -->
+                                <a href="tambah-spp-x-a.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                    <span class="text">Tambah SPP</span>
+                                </a>
+
+                                <!-- Tombol Visibility Dropdown -->
+                                <div class="dropdown mr-2">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle btn-equal align-items-center" type="button" 
+                                            id="dropdownVisibility" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-eye mr-1"></i>
+                                        </span>
+                                        <span class="text">Visibility</span>
+                                    </button>
+                                    <div class="dropdown-menu p-3" aria-labelledby="dropdownVisibility">
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="0" id="colID" checked>
+                                            <label class="form-check-label" for="colID">ID SPP</label>
                                         </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="1" id="colName" checked>
+                                            <label class="form-check-label" for="colName">Nama Siswa</label>
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colKelas" checked>
+                                            <label class="form-check-label" for="colKelas">Kelas</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colBulan" checked>
+                                            <label class="form-check-label" for="colBulan">Bulan</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colTahunAjaran" checked>
+                                            <label class="form-check-label" for="colTahunAjaran">Tahun Ajaran</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="5" id="colTanggalBayar" checked>
+                                            <label class="form-check-label" for="colTanggalBayar">Tanggal Bayar</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="6" id="colStatus" checked>
+                                            <label class="form-check-label" for="colStatus">Status</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="7" id="colEdit" checked>
+                                            <label class="form-check-label" for="colEdit">Edit</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="8" id="colHapus" checked>
+                                            <label class="form-check-label" for="colHapus">Hapus</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dropdown Generate Report -->
+                                <div class="dropdown">
+                                    <a class="btn btn-sm btn-primary dropdown-toggle shadow-sm" href="#" 
+                                        id="dropdownReport" role="button" data-toggle="dropdown" 
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-download fa-sm text-white-50 mr-1"></i> Generate Report
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownReport">
+                                        <a class="dropdown-item export-pdf" href="#">
+                                            <i class="fas fa-file-pdf fa-sm text-danger mr-2"></i> Export PDF
+                                        </a>
+                                        <a class="dropdown-item export-excel" href="#">
+                                            <i class="fas fa-file-excel fa-sm text-success mr-2"></i> Export Excel
+                                        </a>
+                                        <a class="dropdown-item export-csv" href="#">
+                                            <i class="fas fa-file-csv fa-sm text-info mr-2"></i> Export CSV
+                                        </a>
+                                        <a class="dropdown-item export-copy" href="#">
+                                            <i class="fas fa-copy fa-sm text-dark mr-2"></i> Copy
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item export-print" href="#">
+                                            <i class="fas fa-print fa-sm text-primary mr-2"></i> Print
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="card-body">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID SPP</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Kelas</th>
+                                            <th>Bulan</th>
+                                            <th>Tahun Ajaran</th>
+                                            <th>Tanggal Bayar</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Hapus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
+                                    //menampilkan data spp kelas x-a
+                                    $sql = "
+                                        SELECT 
+                                            ps.id_pembayaran,
+                                            s.nama_lengkap,
+                                            k.nama_kelas,
+                                            ps.bulan,
+                                            ps.tahun_ajaran,
+                                            ps.tanggal_bayar,
+                                            ps.status
+                                        FROM pembayaran_spp ps
+                                        INNER JOIN siswa s ON ps.nisn = s.nisn
+                                        INNER JOIN kelas k ON ps.id_kelas = k.id_kelas
+                                        WHERE k.nama_kelas = 'X-A'
+                                    ";
+                                    $query = mysqli_query($koneksi, $sql);
+
+                                   
+                                    while ($result = mysqli_fetch_array($query)) {
+                                        $kode = $result['id_pembayaran'];
+                                    ?>
+
+                                    <tr>
+                                        <td><?php echo $result['id_pembayaran']; ?></td>
+                                        <td><?php echo $result['nama_lengkap']; ?></td>
+                                        <td><?php echo $result['nama_kelas']; ?></td>
+                                        <td><?php echo $result['bulan']; ?></td>
+                                        <td><?php echo $result['tahun_ajaran']; ?></td>
+                                        <td>
+                                        <?= !empty($result['tanggal_bayar']) ? date('d-m-Y', strtotime($result['tanggal_bayar'])) : '-' ?>
+                                        </td>
+                                        <td><?php echo $result['status']; ?></td>
+                                        <td class="text-center">
+                                            <a href="update-spp-x-a.php?id_pembayaran=<?php echo $result['id_pembayaran']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <!-- Tombol hapus yang memicu modal -->
+                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal<?php echo $result['id_pembayaran']; ?>">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+
+                                            <!-- Modal Hapus -->
+                                            <div class="modal fade" id="hapusModal<?php echo $result['id_pembayaran']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel<?php echo $result['id_pembayaran']; ?>" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">                                                            
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="hapusModalLabel<?php echo $result['id_pembayaran']; ?>">Konfirmasi Hapus</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        Apakah Anda yakin ingin menghapus data SPP <strong><?php echo $result['nama_lengkap']; ?></strong> pada bulan <strong><?php echo $result['bulan']; ?></strong>?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                            <a href="hapus-spp-x-a.php?id_pembayaran=<?php echo $result['id_pembayaran']; ?>" class="btn btn-danger">Hapus</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        }
+                                    ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>ID SPP</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Kelas</th>
+                                            <th>Bulan</th>
+                                            <th>Tahun Ajaran</th>
+                                            <th>Tanggal Bayar</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Hapus</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="small font-weight-bold">Server Migration <span
-                                            class="float-right">20%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Sales Tracking <span
-                                            class="float-right">40%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Customer Database <span
-                                            class="float-right">60%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Payout Details <span
-                                            class="float-right">80%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <h4 class="small font-weight-bold">Account Setup <span
-                                            class="float-right">Complete!</span></h4>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Color System -->
-                            <div class="row">
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-primary text-white shadow">
-                                        <div class="card-body">
-                                            Primary
-                                            <div class="text-white-50 small">#4e73df</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-success text-white shadow">
-                                        <div class="card-body">
-                                            Success
-                                            <div class="text-white-50 small">#1cc88a</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-info text-white shadow">
-                                        <div class="card-body">
-                                            Info
-                                            <div class="text-white-50 small">#36b9cc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-warning text-white shadow">
-                                        <div class="card-body">
-                                            Warning
-                                            <div class="text-white-50 small">#f6c23e</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-danger text-white shadow">
-                                        <div class="card-body">
-                                            Danger
-                                            <div class="text-white-50 small">#e74a3b</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-secondary text-white shadow">
-                                        <div class="card-body">
-                                            Secondary
-                                            <div class="text-white-50 small">#858796</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-light text-black shadow">
-                                        <div class="card-body">
-                                            Light
-                                            <div class="text-black-50 small">#f8f9fc</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4">
-                                    <div class="card bg-dark text-white shadow">
-                                        <div class="card-body">
-                                            Dark
-                                            <div class="text-white-50 small">#5a5c69</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-
-                            <!-- Illustrations -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
-                                    </div>
-                                    <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                        constantly updated collection of beautiful svg images that you can use
-                                        completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                        unDraw &rarr;</a>
-                                </div>
-                            </div>
-
-                            <!-- Approach -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                                </div>
-                                <div class="card-body">
-                                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                                        custom components and custom utility classes.</p>
-                                    <p class="mb-0">Before working with this theme, you should become familiar with the
-                                        Bootstrap framework, especially the utility classes.</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -788,7 +699,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer>
@@ -836,12 +747,60 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/demo/datatables-demo.js"></script>
 
+    <!-- DataTables Buttons CSS -->
+    <link rel="stylesheet" href="vendor/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <!-- DataTables Buttons JS -->
+    <script src="vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="vendor/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendor/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="vendor/jszip/jszip.min.js"></script>
+    <script src="vendor/pdfmake/pdfmake.min.js"></script>
+    <script src="vendor/pdfmake/vfs_fonts.js"></script>
+
+    <!-- Script custom toggle Visibility + hubungkan Generate Report -->
+    <script>
+    $(document).ready(function() {
+        // Cek apakah DataTable sudah diinisialisasi
+        var table;
+        if ( ! $.fn.DataTable.isDataTable('#dataTable') ) {
+            table = $('#dataTable').DataTable({
+                dom: 'Bfrtip', // menampilkan tombol DataTables
+                buttons: [
+                    { extend: 'pdfHtml5', text: 'Export PDF', className: 'd-none' },
+                    { extend: 'excelHtml5', text: 'Export Excel', className: 'd-none' },
+                    { extend: 'csvHtml5', text: 'Export CSV', className: 'd-none' },
+                    { extend: 'copyHtml5', text: 'Copy', className: 'd-none' },
+                    { extend: 'print', text: 'Print', className: 'd-none' }
+                ]
+            });
+        } else {
+            table = $('#dataTable').DataTable();
+        }
+
+        // Hubungkan dropdown custom Generate Report
+        $('#dropdownReport .dropdown-item').each(function() {
+            var btnText = $(this).text().trim();
+            $(this).on('click', function(e){
+                e.preventDefault();
+                table.button(btnText).trigger();
+            });
+        });
+
+        // Toggle kolom Visibility
+        $('.col-toggle').on('change', function() {
+            var colIndex = $(this).val();
+            var column = table.column(colIndex);
+            column.visible($(this).is(':checked'));
+        });
+    });
+    </script>
 </body>
-
 </html>

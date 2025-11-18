@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("ssssiss", $id_keuangan, $tanggal, $jenis, $kategori, $jumlah, $keterangan, $nip);
 
     if ($stmt->execute()) {
-        echo "<script>alert('Data berhasil ditambahkan'); window.location.href='pemasukan-pengeluaran.php?status=added';</script>";
+        header('Location: pemasukan-pengeluaran.php?status=added');
     } else {
         echo "<script>alert('Terjadi kesalahan: " . $stmt->error . "'); window.history.back();</script>";
     }

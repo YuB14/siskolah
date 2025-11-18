@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
-    <title>SB Admin 2 - Tables</title>
+    <title>Siskolah - Kritik & Saran</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,7 +49,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -62,11 +62,11 @@
                 Keuangan
             </div>
 
-            <!-- Nav Item - Subsidi Pemerintah -->
+            <!-- Nav Item - Pemasukan & Pengeluaran -->
             <li class="nav-item">
-                <a class="nav-link" href="subsidi-pemerintah.php">
+                <a class="nav-link" href="pemasukan-pengeluaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Subsidi Pemerintah</span></a>
+                    <span>Pemasukan & Pengeluaran</span></a>
             </li>
 
             <!-- Nav Item - SPP -->
@@ -74,12 +74,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSPP"
                     aria-expanded="true" aria-controls="collapseSPP">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Mata Pelajaran</span>
+                    <span>SPP</span>
                 </a>
                 <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="spp-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -94,13 +94,6 @@
                         <a class="collapse-item" href="#">XII C</a>
                     </div>
                 </div>
-            </li>
-
-            <!-- Nav Item - Pengeluaran -->
-            <li class="nav-item">
-                <a class="nav-link" href="pengeluaran.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Pengeluaran</span></a>
             </li>
 
             <!-- Divider -->
@@ -122,9 +115,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.html">Admin</a>
-                        <a class="collapse-item" href="biodata-guru.html">Guru</a>
-                        <a class="collapse-item" href="biodata-siswa.html">Siswa</a>
+                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
+                        <a class="collapse-item" href="biodata-guru.php">Guru</a>
+                        <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
                 </div>
             </li>
@@ -136,24 +129,24 @@
                     <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Guru Mapel -->
-            <li class="nav-item">
-                <a class="nav-link" href="guru-mapel.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Guru Mapel</span></a>
-            </li>
-
             <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMapel"
-                    aria-expanded="true" aria-controls="collapseMapel">
+                <a class="nav-link" href="mata-pelajaran.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mata Pelajaran</span></a>
+            </li>
+
+            <!-- Nav Item - Jadwal Mata Pelajaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
+                    aria-expanded="true" aria-controls="collapseJadwalMapel">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Mata Pelajaran</span>
+                    <span>Jadwal Mata Pelajaran</span>
                 </a>
-                <div id="collapseMapel" class="collapse" aria-labelledby="headingMapel" data-parent="#accordionSidebar">
+                <div id="collapseJadwalMapel" class="collapse" aria-labelledby="headingJadwalMapel" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -222,7 +215,7 @@
                 <div id="collapseNilaiSiswa" class="collapse" aria-labelledby="headingNilaiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -249,16 +242,37 @@
 
             <!-- Nav Item - Pengaduan -->
             <li class="nav-item">
-                <a class="nav-link" href="pengaduan.php">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pengaduan</span></a>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
             </li>
+
 
             <!-- Nav Item - Kritik & Saran -->
             <li class="nav-item">
-                <a class="nav-link" href="kritik-saran.php">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Kritik & Saran</span></a>
+                    <span>kritik-saran</span>
+                </a>
+
+                <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>                        
+                    </div>
+                </div>
             </li>
 
         </ul>
@@ -598,21 +612,40 @@
                                         <tr>
                                             <td><?php echo $result['id_kritik_saran']; ?></td>
                                             <td><?php echo $result['nama_lengkap']; ?></td>
-                                            <td><?php echo $result['tanggal']; ?></td>
+                                            <td>
+                                                <?php 
+                                                echo !empty($result['tanggal']) 
+                                                    ? date('d-m-Y', strtotime($result['tanggal'])) 
+                                                    : '-';
+                                                ?>
+                                            </td>
                                             <td><?php echo $result['jenis']; ?></td>
                                             <td><?php echo $result['isi']; ?></td>
                                             <td><?php echo $result['tanggapan']; ?></td>
-                                            <td><?php echo $result['tanggal_tanggapan']; ?></td>
-                                            <td style="text-align: center;">
-                                                <a href="?page=edit-user&kode=<?php echo $kode;?>" class="nav-link">
-                                                    <i class="nav-icon fas fa-pencil-alt"></i>
-                                                </a>
+                                            <td>
+                                                <?php 
+                                                echo !empty($result['tanggal_tanggapan']) 
+                                                    ? date('d-m-Y', strtotime($result['tanggal_tanggapan'])) 
+                                                    : '-';
+                                                ?>
                                             </td>
-                                            <td style="text-align: center;">
-                                                <a href="?page=hapus-user&kode=<?php echo $kode; ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="nav-link">
-                                                    <i class="nav-icon fas fa-trash-alt"></i>
-                                                </a>
-                                            </td>
+
+                                             <td class="text-center">
+                                            <a href="edit-kritik-saran.php?id_kritik_saran=<?= $result['id_kritik_saran']; ?>" 
+                                            class="btn btn-primary btn-sm" 
+                                            style="border-radius: 8px;">
+                                                <i class="fas fa-pen"></i> Edit
+                                            </a>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="hapus-kritik-saran.php?id_kritik_saran=<?= $result['id_kritik_saran']; ?>" 
+                                            onclick="return confirm('Yakin ingin menghapus data ini?')" 
+                                            class="btn btn-danger btn-sm"
+                                            style="border-radius: 8px;">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </a>
+                                        </td>
                                         </tr>
                                     <?php
                                     }                 
@@ -682,6 +715,61 @@
         </div>
     </div>
 
+    <!-- Modal Edit Kritik & Saran -->
+<div class="modal fade" id="modalEditKritikSaran" tabindex="-1" role="dialog" aria-labelledby="modalEditLabelKritik" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form action="update-kritik-saran.php" method="POST">
+      <div class="modal-content">
+        
+        <!-- HEADER BIRU -->
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalEditLabelKritik">Edit Kritik & Saran</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <!-- ISI FORM -->
+        <div class="modal-body">
+          <!-- ID tersembunyi -->
+          <input type="hidden" name="id_kritik_saran" id="edit_id_kritik_saran">
+
+          <div class="form-group">
+            <label>Nama Siswa</label>
+            <input type="text" name="nama_siswa" id="edit_nama_siswa" class="form-control" readonly>
+          </div>
+
+          <div class="form-group">
+            <label>Jenis</label>
+            <select name="jenis" id="edit_jenis" class="form-control" required>
+              <option value="">-- Pilih Jenis --</option>
+              <option value="Kritik">Kritik</option>
+              <option value="Saran">Saran</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Isi</label>
+            <textarea name="isi" id="edit_isi" class="form-control" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Tanggal</label>
+            <input type="date" name="tanggal" id="edit_tanggal" class="form-control" required>
+          </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -749,6 +837,16 @@
     });
     </script>
 
+    <!-- Script Edit Kritik & Saran -->
+<script>
+function editKritikSaran(id, nama, jenis, isi, tanggal) {
+  document.getElementById('edit_id_kritik_saran').value = id;
+  document.getElementById('edit_nama_siswa').value = nama;
+  document.getElementById('edit_jenis').value = jenis;
+  document.getElementById('edit_isi').value = isi;
+  document.getElementById('edit_tanggal').value = tanggal;
+}
+</script>
 
 </body>
 

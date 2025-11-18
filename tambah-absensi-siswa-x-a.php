@@ -20,7 +20,7 @@ if (!$querySiswa) {
     <meta name="author" content="">
 
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
-    <title>Siskolah - Tambah Kritik & Saran</title>
+    <title>Siskolah - Tambah Absensi Siswa</title>
 
     <!-- Font & Template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -179,7 +179,7 @@ if (!$querySiswa) {
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="absensi-siswa.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -289,83 +289,97 @@ if (!$querySiswa) {
                     </button>
                 </nav>
 
-                <!-- Main Content -->
-                <div class="container-fluid">
+               <!-- Main Content -->
+<div class="container-fluid">
 
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="h3 text-gray-800 mb-0">Tambah Kritik & Saran</h1>
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="kritik-saran.php">Data Kritik & Saran</a></li>
-                            <li class="breadcrumb-item active">Tambah Kritik & Saran</li>
-                        </ol>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 text-gray-800 mb-0">Tambah Absensi Siswa</h1>
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+            <li class="breadcrumb-item"><a href="absensi-siswa.php">Data Absensi Siswa</a></li>
+            <li class="breadcrumb-item active">Tambah Absensi Siswa</li>
+        </ol>
+    </div>
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Form Tambah Absensi</h3>
+        </div>
+
+        <form action="proses-tambah-absensi-siswa.php" method="POST">
+            <div class="card-body">
+                <div class="row">
+                    <!-- Kiri: Kategori Kehadiran -->
+                    <div class="col-md-3 text-center">
+                        <h5 class="mb-4">Status Kehadiran</h5>
+                        <div class="d-flex flex-column align-items-start">
+                            <label class="mb-3"><input type="radio" name="status" value="Hadir" required> Hadir</label>
+                            <label class="mb-3"><input type="radio" name="status" value="Izin"> Izin</label>
+                            <label class="mb-3"><input type="radio" name="status" value="Sakit"> Sakit</label>
+                            <label><input type="radio" name="status" value="Alpa"> Alpa</label>
+                        </div>
                     </div>
 
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Form Kritik & Saran</h3>
-                        </div>
-
-                        <form action="proses-tambah-kritik-saran.php" method="POST" enctype="multipart/form-data">
-                            <div class="card-body">
-
-                                <!-- NISN -->
-                                <div class="form-group">
-                                    <label for="nisn">NISN</label>
-                                    <select name="nisn" id="nisn" class="form-control select2" required>
-                                        <option value="">-- Pilih NISN atau Nama Siswa --</option>
-                                        <?php while($row = mysqli_fetch_assoc($querySiswa)) { ?>
-                                            <option value="<?= $row['nisn']; ?>" data-nama="<?= htmlspecialchars($row['nama_lengkap']); ?>">
-                                                <?= $row['nisn']; ?> - <?= htmlspecialchars($row['nama_lengkap']); ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-
-                                 <!-- Nama otomatis -->
-                                <div class="form-group">
-                                    <label for="nama_siswa">Nama Siswa</label>
-                                    <input type="text" name="nama_siswa" id="nama_siswa" class="form-control" readonly required>
-                                </div>
-
-                                <!-- Tanggal -->
-                                <div class="form-group">
-                                    <label for="tanggal">Tanggal </label>
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
-                                </div>
-
-                                <!-- Jenis -->
-                               <div class="form-group">
-                                    <label for="jenis">Jenis</label>
-                                    <select name="jenis" id="jenis" class="form-control" required>
-                                        <option value="">-- Pilih Jenis --</option>
-                                        <option value="Kritik">Kritik</option>
-                                        <option value="Saran">Saran</option>
-                                    </select>
-                                </div>
-
-
-
-                                <!-- Isi -->
-                                <div class="form-group">
-                                    <label for="isi">Isi </label>
-                                    <textarea name="isi" id="isi" class="form-control" rows="4" placeholder="Tulis isi di sini..." required></textarea>
-                                </div>
-
-                            
-
-                            <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-paper-plane"></i> Kirim 
-                                </button>
-                                <a href="kritik-saran.php" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left"></i> Kembali
-                                </a>
+                    <!-- Kanan: Daftar Siswa -->
+                    <div class="col-md-9">
+                        <h5 class="mb-4 d-flex justify-content-between align-items-center">
+                            Daftar Siswa
+                            <div>
+                                <button type="button" id="selectAll" class="btn btn-sm btn-primary">Pilih Semua</button>
+                                <button type="button" id="deselectAll" class="btn btn-sm btn-secondary">Batal Semua</button>
                             </div>
-                        </form>
+                        </h5>
+
+                        <div class="form-group">
+    <label>Cari Siswa</label>
+    <input type="text" id="searchSiswa" class="form-control" placeholder="Cari NISN / Nama...">
+</div>
+
+
+                        <div class="border rounded p-3" style="max-height:400px; overflow-y:auto;">
+                            <?php while($row = mysqli_fetch_assoc($querySiswa)) { ?>
+                                <div class="card shadow-sm mb-2">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong><?= htmlspecialchars($row['nama_lengkap']); ?></strong><br>
+                                            <small>NISN: <?= $row['nisn']; ?></small>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" name="nisn[]" value="<?= $row['nisn']; ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Tanggal dan Keterangan -->
+                <div class="form-group mt-4">
+                    <label for="tanggal">Tanggal</label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control" value="<?= date('Y-m-d'); ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="keterangan">Keterangan</label>
+                    <textarea name="keterangan" id="keterangan" class="form-control" rows="3" placeholder="Masukkan keterangan jika diperlukan..."></textarea>
+                </div>
             </div>
+
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Simpan Absensi
+                </button>
+                <a href="absensi-siswa.php" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -390,7 +404,6 @@ if (!$querySiswa) {
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-
     <script>
         $(document).ready(function() {
             // Aktifkan Select2
@@ -409,6 +422,54 @@ if (!$querySiswa) {
             });
         });
     </script>
+
+        <script>
+    // Pilih semua
+    document.getElementById('selectAll').onclick = function() {
+        document.querySelectorAll("input[name='nisn[]']").forEach(el => el.checked = true);
+    };
+
+    // Batal semua
+    document.getElementById('deselectAll').onclick = function() {
+        document.querySelectorAll("input[name='nisn[]']").forEach(el => el.checked = false);
+    };
+</script>
+
+<script>
+document.getElementById('searchSiswa').addEventListener('keyup', function() {
+
+    let filter = this.value.toLowerCase();
+    let list = document.querySelectorAll(".card.shadow-sm");
+
+    // Array untuk sorting manual
+    let match = [];
+    let noMatch = [];
+
+    list.forEach(card => {
+
+        let nama = card.querySelector("strong").textContent.toLowerCase();
+        let nisn = card.querySelector("small").textContent.toLowerCase();
+
+        if (nama.includes(filter) || nisn.includes(filter)) {
+            match.push(card);
+            card.style.display = "";
+        } else {
+            noMatch.push(card);
+            card.style.display = "";
+        }
+    });
+
+    // Render ulang: matched → paling atas
+    let container = document.querySelector(".border.rounded.p-3");
+    container.innerHTML = "";
+
+    match.forEach(c => container.appendChild(c));
+    noMatch.forEach(c => container.appendChild(c));
+
+});
+</script>
+
+
 
 </body>
 </html>

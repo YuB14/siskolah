@@ -1,12 +1,29 @@
 <?php
 require_once "./library/koneksi.php";
 
-// Ambil data siswa dari database
-$querySiswa = mysqli_query($koneksi, "SELECT nisn, nama_lengkap FROM siswa ORDER BY nama_lengkap ASC");
-if (!$querySiswa) {
-    die("Query gagal: " . mysqli_error($koneksi));
+if (isset($_GET['id_absensi'])) {
+    $id_absensi = $_GET['id_absensi'];
+    $query = mysqli_query($koneksi, "
+    SELECT absensi_siswa.*, siswa.nama_lengkap 
+    FROM absensi_siswa 
+    JOIN siswa ON absensi_siswa.nisn = siswa.nisn
+    WHERE absensi_siswa.id_absensi = '$id_absensi'
+");
+
+    if (mysqli_num_rows($query) == 0) {
+        echo "<script>alert('Data absensi tidak ditemukan!'); window.location='absensi-siswa.php';</script>";
+        exit;
+    }
+
+    $data = mysqli_fetch_assoc($query);
+} else {
+    echo "<script>alert('ID absensi tidak ditemukan!'); window.location='absensi-siswa.php';</script>";
+    exit;
 }
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -20,7 +37,7 @@ if (!$querySiswa) {
     <meta name="author" content="">
 
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
-    <title>Siskolah - Tambah Kritik & Saran</title>
+    <title>Siskolah - Edit Pengaduan</title>
 
     <!-- Font & Template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -179,7 +196,7 @@ if (!$querySiswa) {
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="absensi-siswa.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -264,7 +281,6 @@ if (!$querySiswa) {
                     </div>
                 </div>
             </li>
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -289,83 +305,76 @@ if (!$querySiswa) {
                     </button>
                 </nav>
 
-                <!-- Main Content -->
-                <div class="container-fluid">
 
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="h3 text-gray-800 mb-0">Tambah Kritik & Saran</h1>
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                            <li class="breadcrumb-item"><a href="kritik-saran.php">Data Kritik & Saran</a></li>
-                            <li class="breadcrumb-item active">Tambah Kritik & Saran</li>
-                        </ol>
-                    </div>
+<!-- Main Content -->
+<div class="container-fluid">
 
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Form Kritik & Saran</h3>
-                        </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 text-gray-800 mb-0">Edit Absensi Siswa</h1>
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="pengaduan.php">Data Absensi Siswa</a></li>
+            <li class="breadcrumb-item active">Absensi Siswa</li>
+        </ol>
+    </div>
 
-                        <form action="proses-tambah-kritik-saran.php" method="POST" enctype="multipart/form-data">
-                            <div class="card-body">
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Form Absensi Siswa</h3>
+        </div>
 
-                                <!-- NISN -->
-                                <div class="form-group">
-                                    <label for="nisn">NISN</label>
-                                    <select name="nisn" id="nisn" class="form-control select2" required>
-                                        <option value="">-- Pilih NISN atau Nama Siswa --</option>
-                                        <?php while($row = mysqli_fetch_assoc($querySiswa)) { ?>
-                                            <option value="<?= $row['nisn']; ?>" data-nama="<?= htmlspecialchars($row['nama_lengkap']); ?>">
-                                                <?= $row['nisn']; ?> - <?= htmlspecialchars($row['nama_lengkap']); ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
+        <form action="proses-edit-absensi-siswa.php" method="POST" enctype="multipart/form-data">
+            <div class="card-body">
 
-                                 <!-- Nama otomatis -->
-                                <div class="form-group">
-                                    <label for="nama_siswa">Nama Siswa</label>
-                                    <input type="text" name="nama_siswa" id="nama_siswa" class="form-control" readonly required>
-                                </div>
+                <!-- ID absensi -->
+                <input type="hidden" name="id_absensi" value="<?= $data['id_absensi']; ?>">
 
-                                <!-- Tanggal -->
-                                <div class="form-group">
-                                    <label for="tanggal">Tanggal </label>
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
-                                </div>
-
-                                <!-- Jenis -->
-                               <div class="form-group">
-                                    <label for="jenis">Jenis</label>
-                                    <select name="jenis" id="jenis" class="form-control" required>
-                                        <option value="">-- Pilih Jenis --</option>
-                                        <option value="Kritik">Kritik</option>
-                                        <option value="Saran">Saran</option>
-                                    </select>
-                                </div>
-
-
-
-                                <!-- Isi -->
-                                <div class="form-group">
-                                    <label for="isi">Isi </label>
-                                    <textarea name="isi" id="isi" class="form-control" rows="4" placeholder="Tulis isi di sini..." required></textarea>
-                                </div>
-
-                            
-
-                            <div class="card-footer text-right">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-paper-plane"></i> Kirim 
-                                </button>
-                                <a href="kritik-saran.php" class="btn btn-secondary">
-                                    <i class="fas fa-arrow-left"></i> Kembali
-                                </a>
-                            </div>
-                        </form>
-                    </div>
+                <div class="form-group">
+                    <label for="nisn">NISN</label>
+                    <input type="text" name="nisn" id="nisn" class="form-control"
+                        value="<?= htmlspecialchars($data['nisn']); ?>" readonly>
                 </div>
+
+                <div class="form-group">
+                    <label for="nama_siswa">Nama Siswa</label>
+                    <input type="text" name="nama_siswa" id="nama_lengkap" class="form-control"
+                        value="<?= htmlspecialchars($data['nama_lengkap']); ?>" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal">Tanggal</label>
+                    <input type="date" name="tanggal" id="tanggal"
+                        class="form-control" value="<?= $data['tanggal']; ?>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status Kehadiran</label>
+                    <select name="status" id="status" class="form-control" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Hadir" <?= ($data['status'] == 'Hadir') ? 'selected' : ''; ?>>Hadir</option>
+                        <option value="Izin" <?= ($data['status'] == 'Izin') ? 'selected' : ''; ?>>Izin</option>
+                        <option value="Sakit" <?= ($data['status'] == 'Sakit') ? 'selected' : ''; ?>>Sakit</option>
+                        <option value="Alpa" <?= ($data['status'] == 'Alpa') ? 'selected' : ''; ?>>Alpa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="keterangan">Keterangan</label>
+                    <textarea name="keterangan" id="keterangan" class="form-control" rows="4" required><?= htmlspecialchars($data['keterangan']); ?></textarea>
+                </div>
+
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Simpan Perubahan
+                </button>
+                <a href="pengaduan.php" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
             </div>
+        </form>
+    </div>
+</div>
+
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -387,27 +396,14 @@ if (!$querySiswa) {
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Select2 -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-    <script>
-        $(document).ready(function() {
-            // Aktifkan Select2
-           $('#nisn').select2({
-    placeholder: "Pilih NISN atau nama siswa",
-    allowClear: true,
-    width: '100%',
-    minimumResultsForSearch: Infinity // 🔥 Hilangkan kolom pencarian di dropdown
+    
+<script>
+document.getElementById('nisn').addEventListener('change', function() {
+    const selected = this.options[this.selectedIndex];
+    document.getElementById('nama_siswa').value = selected.getAttribute('data-nama') || '';
 });
+</script>
 
-
-            // Isi otomatis nama siswa
-            $('#nisn').on('change', function() {
-                let nama = $(this).find(':selected').data('nama');
-                $('#nama_siswa').val(nama || '');
-            });
-        });
     </script>
 
 </body>

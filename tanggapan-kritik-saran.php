@@ -12,7 +12,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
-    <title>Siskolah - Kelas</title>
+    <title>Siskolah - Tanggapan Kritik & Saran</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -26,8 +26,9 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-</head>
 
+
+</head>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -49,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -79,7 +80,7 @@
                 <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="spp-x-a.php">X A</a>
                         <a class="collapse-item" href="#">X B</a>
                         <a class="collapse-item" href="#">X C</a>
                         <div class="collapse-divider"></div>
@@ -129,14 +130,7 @@
                     <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Guru Mapel -->
-            <li class="nav-item">
-                <a class="nav-link" href="guru-mapel.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Guru Mapel</span></a>
-            </li>
-
-            <!-- Nav Item - Mapel -->
+            <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
                 <a class="nav-link" href="mata-pelajaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -249,16 +243,36 @@
 
             <!-- Nav Item - Pengaduan -->
             <li class="nav-item">
-                <a class="nav-link" href="pengaduan.php">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pengaduan</span></a>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Kritik & Saran -->
             <li class="nav-item">
-                <a class="nav-link" href="kritik-saran.php">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Kritik & Saran</span></a>
+                    <span>kritik-saran</span>
+                </a>
+
+                <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>                        
+                    </div>
+                </div>
             </li>
 
         </ul>
@@ -471,46 +485,29 @@
                     <!-- Header Page -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <!-- Judul Halaman -->
-                        <h1 class="h3 text-gray-800 mb-0">Kelas</h1>
+                        <h1 class="h3 text-gray-800 mb-0">Kritik & Saran</h1>
 
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active">Data Kelas</li>
+                            <li class="breadcrumb-item active">Data Kritik & Saran</li>
                         </ol>
                     </div>
-
-                    <!-- ALERT SUKSES TAMBAH UPDATE HAPUS -->
-                    <?php
-                    function showAlert($status, $message) {
-                        if (isset($_GET['status']) && $_GET['status'] == $status) {
-                            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">'
-                                . $message .
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Tutup">
-                                    <span aria-hidden="true">&times;</span>
-                                </button></div>';
-                        }
-                    }
-
-                    showAlert('added', 'Data kelas berhasil ditambah!');
-                    showAlert('updated', 'Data kelas berhasil diupdate!');
-                    showAlert('deleted', 'Data kelas berhasil dihapus!');
-                    ?>
 
                      <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <!-- Judul Card -->
-                            <h6 class="m-0 font-weight-bold text-primary">Tabel Data Kelas</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Tabel Data Kritik & Saran</h6>
 
                             <!-- Container tombol -->
                             <div class="d-flex align-items-center">
                                 <!-- Tombol Tambah Kelas -->
-                                <a href="tambah-kelas.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
+                                <a href="tambah-kritik-saran.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
                                     <span class="icon text-white-50">
                                         <i class="fas fa-plus"></i>
                                     </span>
-                                    <span class="text">Tambah Kelas</span>
+                                    <span class="text">Tambah Kritik & Saran</span>
                                 </a>
 
                                 <!-- Tombol Visibility Dropdown -->
@@ -525,23 +522,35 @@
                                     <div class="dropdown-menu p-3" aria-labelledby="dropdownVisibility">
                                         <div class="form-check">
                                             <input class="form-check-input col-toggle" type="checkbox" value="0" id="colID" checked>
-                                            <label class="form-check-label" for="colID">ID Kelas</label>
+                                            <label class="form-check-label" for="colID">ID Kritik & Saran</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input col-toggle" type="checkbox" value="1" id="colNama" checked>
-                                            <label class="form-check-label" for="colNama">Nama Kelas</label>
+                                            <label class="form-check-label" for="colNama">Nama Siswa</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colWali" checked>
-                                            <label class="form-check-label" for="colWali">Wali Kelas</label>
+                                            <input class="form-check-input col-toggle" type="checkbox" value="1" id="colTanggal" checked>
+                                            <label class="form-check-label" for="colTanggal">Tanggal</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colEdit" checked>
-                                            <label class="form-check-label" for="colEdit">Edit</label>
+                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colJenis" checked>
+                                            <label class="form-check-label" for="colJenis">Jenis</label>
                                         </div>
                                         <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colHapus" checked>
-                                            <label class="form-check-label" for="colHapus">Hapus</label>
+                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colIsi" checked>
+                                            <label class="form-check-label" for="colIsi">Isi</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colTanggapan" checked>
+                                            <label class="form-check-label" for="colTanggapan">Tanggapan</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="5" id="colTglTanggapan" checked>
+                                            <label class="form-check-label" for="colTglTanggapan">Tanggal Tanggapan</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input col-toggle" type="checkbox" value="6" id="colTanggapi" checked>
+                                            <label class="form-check-label" for="colTanggapi">Tanggapi</label>
                                         </div>
                                     </div>
                                 </div>
@@ -575,74 +584,78 @@
                             </div>
                         </div>
                         <div class="card-body">
-
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas</th>
-                                            <th>Wali Kelas</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>
+                                            <th>ID Kritik & Saran</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Tanggal</th>
+                                            <th>Jenis</th>
+                                            <th>Isi</th>
+                                            <th>Tanggapan</th>
+                                            <th>Tanggal Tanggapan</th>
+                                            <th>Tanggapi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    //menampilkan data user
-                                    $sql="SELECT kelas.*, guru.nama_lengkap
-                                            FROM kelas
-                                            LEFT JOIN guru ON kelas.nip = guru.nip";
-                                    $query=mysqli_query($koneksi, $sql);
-                                    while($result=mysqli_fetch_array($query)) {
-                                        $kode = $result['id_kelas'];
-                                    ?>
-                                    <tr>
-                                        <td><?php echo$result['id_kelas']?></td>
-                                        <td><?php echo$result['nama_kelas']?></td>
-                                        <td><?php echo$result['nama_lengkap']?></td>
-                                        <td class="text-center">
-                                            <a href="update-kelas.php?id_kelas=<?php echo $result['id_kelas']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- Tombol hapus yang memicu modal -->
-                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal<?php echo $result['id_kelas']; ?>">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
+                                    $sql = "SELECT kritik_saran.*, siswa.nama_lengkap
+                                            FROM kritik_saran
+                                            LEFT JOIN siswa ON kritik_saran.nisn = siswa.nisn";
+                                    $query = mysqli_query($koneksi, $sql);
 
-                                            <!-- Modal Hapus -->
-                                            <div class="modal fade" id="hapusModal<?php echo $result['id_kelas']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel<?php echo $result['id_kelas']; ?>" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">                                                            
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="hapusModalLabel<?php echo $result['id_kelas']; ?>">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        Apakah Anda yakin ingin menghapus data kelas <strong><?php echo $result['nama_kelas']; ?></strong>?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <a href="hapus-kelas.php?id_kelas=<?php echo $result['id_kelas']; ?>" class="btn btn-danger">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    while($result = mysqli_fetch_array($query)) {
+                                        $kode = $result['id_kritik_saran'];
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $result['id_kritik_saran']; ?></td>
+                                            <td><?php echo $result['nama_lengkap']; ?></td>
+                                            <td>
+                                                <?php 
+                                                echo !empty($result['tanggal']) 
+                                                    ? date('d-m-Y', strtotime($result['tanggal'])) 
+                                                    : '-';
+                                                ?>
+                                            </td>
+                                            <td><?php echo $result['jenis']; ?></td>
+                                            <td><?php echo $result['isi']; ?></td>
+                                            <td><?php echo $result['tanggapan']; ?></td>
+                                            <td>
+                                                <?php 
+                                                echo !empty($result['tanggal_tanggapan']) 
+                                                    ? date('d-m-Y', strtotime($result['tanggal_tanggapan'])) 
+                                                    : '-';
+                                                ?>
+                                            </td>
+                                            
+                                            <!-- Tombol Tanggapi (Kritik & Saran) -->
+                                            <td class="text-center">
+                                                <button class="btn btn-success btn-sm tanggapi-btn"
+                                                    data-id="<?= $result['id_kritik_saran']; ?>"
+                                                    data-nama="<?= htmlspecialchars($result['nama_lengkap']); ?>"
+                                                    data-jenis="<?= htmlspecialchars($result['jenis']); ?>"
+                                                    data-isi="<?= htmlspecialchars($result['isi']); ?>"
+                                                    data-toggle="modal"
+                                                    data-target="#modalTanggapan">
+                                                    <i class="fas fa-comment-dots"></i> Tanggapi
+                                                </button>
+                                            </td>
+                                        </tr>
                                     <?php
-                                        }
+                                    }                 
                                     ?>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID Kelas</th>
-                                            <th>Nama Kelas</th>
-                                            <th>Wali Kelas</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>  
+                                            <th>ID Kritik & Saran</th>
+                                            <th>Nama Siswa</th>
+                                            <th>Tanggal</th>
+                                            <th>Jenis</th>
+                                            <th>Isi</th>
+                                            <th>Tanggapan</th>
+                                            <th>Tanggal Tanggapan</th>
+                                            <th>Tanggapi</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -696,27 +709,105 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
+    <!-- GANTI MODAL EDIT -->
+    <div class="modal fade" id="modalEditKritikSaran" tabindex="-1">
+        <div class="modal-dialog">
+            <form action="update-kritik-saran.php" method="POST">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Edit Kritik & Saran</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id_kritik_saran" id="edit_id_kritik_saran">
+                <div class="form-group">
+                    <label>Nama Siswa</label>
+                    <input type="text" id="edit_nama_siswa" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Jenis</label>
+                    <select name="jenis" id="edit_jenis" class="form-control" required>
+                    <option value="Kritik">Kritik</option>
+                    <option value="Saran">Saran</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Isi</label>
+                    <textarea name="isi" id="edit_isi" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" name="tanggal" id="edit_tanggal" class="form-control" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- END Modal Edit -->
+
+        
+    <!-- MODAL TANGGAPAN - VERSI FIX 100% -->
+    <div class="modal fade" id="modalTanggapan" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form action="proses-tanggapan-kritik-saran.php" method="POST" id="formTanggapan">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Tanggapi Kritik & Saran</h5>
+            <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+            <input type="hidden" name="id_kritik_saran" id="id_kritik_saran">
+
+            <div class="form-group">
+                <label>Nama Siswa</label>
+                <input type="text" id="nama_siswa" class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Jenis</label>
+                <input type="text" id="jenis" class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>Isi Kritik/Saran</label>
+                <textarea id="isi" class="form-control" rows="3" readonly></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Tanggapan <span class="text-danger">*</span></label>
+                <textarea name="tanggapan" id="tanggapan" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Tanggal Tanggapan <span class="text-danger">*</span></label>
+                <input type="date" name="tanggal_tanggapan" id="tanggal_tanggapan" class="form-control" required>
+            </div>
+            </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+            <button type="submit" name="kirim" class="btn btn-success">
+                Kirim Tanggapan
+            </button>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+
+    <!-- SEMUA SCRIPT (GANTI SEMUA YANG LAMA DENGAN INI) -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-
-    <!-- DataTables Buttons CSS -->
-    <link rel="stylesheet" href="vendor/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-    <!-- DataTables Buttons JS -->
     <script src="vendor/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="vendor/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
     <script src="vendor/datatables-buttons/js/buttons.html5.min.js"></script>
@@ -725,45 +816,51 @@
     <script src="vendor/pdfmake/pdfmake.min.js"></script>
     <script src="vendor/pdfmake/vfs_fonts.js"></script>
 
-    <!-- Script custom toggle Visibility + hubungkan Generate Report -->
     <script>
     $(document).ready(function() {
-        // Cek apakah DataTable sudah diinisialisasi
-        var table;
-        if ( ! $.fn.DataTable.isDataTable('#dataTable') ) {
-            table = $('#dataTable').DataTable({
-                dom: 'Bfrtip', // menampilkan tombol DataTables
-                buttons: [
-                    { extend: 'pdfHtml5', text: 'Export PDF', className: 'd-none' },
-                    { extend: 'excelHtml5', text: 'Export Excel', className: 'd-none' },
-                    { extend: 'csvHtml5', text: 'Export CSV', className: 'd-none' },
-                    { extend: 'copyHtml5', text: 'Copy', className: 'd-none' },
-                    { extend: 'print', text: 'Print', className: 'd-none' }
-                ]
-            });
-        } else {
-            table = $('#dataTable').DataTable();
-        }
-
-        // Hubungkan dropdown custom Generate Report
-        $('#dropdownReport .dropdown-item').each(function() {
-            var btnText = $(this).text().trim();
-            $(this).on('click', function(e){
-                e.preventDefault();
-                table.button(btnText).trigger();
-            });
+        // 1. DataTable + Export + Visibility
+        var table = $('#dataTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'pdfHtml5', text: 'Export PDF', className: 'd-none' },
+                { extend: 'excelHtml5', text: 'Export Excel', className: 'd-none' },
+                { extend: 'csvHtml5', text: 'Export CSV', className: 'd-none' },
+                { extend: 'copyHtml5', text: 'Copy', className: 'd-none' },
+                { extend: 'print', text: 'Print', className: 'd-none' }
+            ]
         });
 
-        // Toggle kolom Visibility
+        $('#dropdownReport .dropdown-item').on('click', function(e) {
+            e.preventDefault();
+            table.button($(this).text().trim()).trigger();
+        });
+
         $('.col-toggle').on('change', function() {
-            var colIndex = $(this).val();
-            var column = table.column(colIndex);
-            column.visible($(this).is(':checked'));
+            table.column($(this).val()).visible($(this).is(':checked'));
         });
     });
     </script>
 
+    <script>
+    $(document).on('click', '.tanggapi-btn', function() {
+        $('#id_kritik_saran').val($(this).data('id'));
+        $('#nama_siswa').val($(this).data('nama'));
+        $('#jenis').val($(this).data('jenis'));
+        $('#isi').val($(this).data('isi'));
+        $('#tanggapan').val('');
+        $('#tanggal_tanggapan').val('');
+    });
+    </script>
+
+    <script>
+    function editKritikSaran(id, nama, jenis, isi, tanggal) {
+        document.getElementById('edit_id_kritik_saran').value = id || '';
+        document.getElementById('edit_nama_siswa').value = nama || '';
+        document.getElementById('edit_jenis').value = jenis || '';
+        document.getElementById('edit_isi').value = isi || '';
+        document.getElementById('edit_tanggal').value = tanggal || '';    
+    }
+    </script>
 
 </body>
-
 </html>

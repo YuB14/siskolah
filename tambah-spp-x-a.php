@@ -1,3 +1,23 @@
+<?php
+require_once "./library/koneksi.php";
+
+// Ambil data terakhir dari tabel keuangan untuk mencari id terakhir
+$query = mysqli_query($koneksi, "SELECT id_pembayaran FROM pembayaran_spp ORDER BY id_pembayaran DESC LIMIT 1");
+$row = mysqli_fetch_assoc($query);
+
+if ($row) {
+    // Ambil angka terakhir dari id terakhir
+    $lastId = $row['id_pembayaran'];
+    $num = (int) substr($lastId, 5); // asumsikan format ID: "SPPXA0001"
+    $num++;
+} else {
+    $num = 1; // jika tabel masih kosong
+}
+
+// Buat id_pembayaran baru dengan format SPPXA0001, SPPXA0002, dst.
+$id_pembayaran = 'SPPXA' . str_pad($num, 4, '0', STR_PAD_LEFT);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,15 +29,18 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Other Utilities</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
-    <!-- Custom fonts for this template-->
+    <title>Siskolah - Tambah SPP X-A</title>
+
+    <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <!-- Custom styles for this template-->
+    <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
@@ -32,17 +55,17 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Siskolah</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -53,40 +76,39 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Keuangan
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Pemasukan & Pengeluaran -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="pemasukan-pengeluaran.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Pemasukan & Pengeluaran</span></a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+            <!-- Nav Item - SPP -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalSPP"
+                    aria-expanded="true" aria-controls="collapseJadwalSPP">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>SPP</span>
                 </a>
-                <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
+                <div id="collapseJadwalSPP" class="collapse" aria-labelledby="headingJadwalSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item active" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="spp-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
                     </div>
                 </div>
             </li>
@@ -96,51 +118,158 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Informasi Sekolah
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Menu Kolaborasi Biodata -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBiodata"
+                    aria-expanded="true" aria-controls="collapseBiodata">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Biodata</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseBiodata" class="collapse" aria-labelledby="headingBiodata"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Biodata Pengguna:</h6>
+                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
+                        <a class="collapse-item" href="biodata-guru.php">Guru</a>
+                        <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Nav Item - Kelas -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="kelas.php">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                    <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            <!-- Nav Item - Mapel -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                <a class="nav-link" href="mata-pelajaran.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mata Pelajaran</span></a>
+            </li>
+
+            <!-- Nav Item - Jadwal Mata Pelajaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
+                    aria-expanded="true" aria-controls="collapseJadwalMapel">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Jadwal Mata Pelajaran</span>
+                </a>
+                <div id="collapseJadwalMapel" class="collapse" aria-labelledby="headingJadwalMapel" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Nilai Siswa
+            </div>
+
+            <!-- Nav Item - Absensi Guru -->
+            <li class="nav-item">
+                <a class="nav-link" href="absensi-guru.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Absensi Guru</span></a>
+            </li>
+
+            <!-- Nav Item - Absensi Siswa -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensiSiswa"
+                    aria-expanded="true" aria-controls="collapseAbsensiSiswa">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Absensi Siswa</span>
+                </a>
+                <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Nilai Siswa -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNilaiSiswa"
+                    aria-expanded="true" aria-controls="collapseNilaiSiswa">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Nilai Siswa</span>
+                </a>
+                <div id="collapseNilaiSiswa" class="collapse" aria-labelledby="headingNilaiSiswa" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Masukan
             </div>
+
+            <!-- Nav Item - Pengaduan -->
+            <li class="nav-item">
+                <a class="nav-link" href="pengaduan.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pengaduan</span></a>
+            </li>
+
+            <!-- Nav Item - Kritik & Saran -->
+            <li class="nav-item">
+                <a class="nav-link" href="kritik-saran.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Kritik & Saran</span></a>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->
@@ -155,24 +284,10 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
+                     <button id="sidebarToggleTop" class="btn btn-link p-2 mr-2">
+                        <i class="fa fa-bars fa-lg"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
+                    
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -355,97 +470,110 @@
                 </nav>
                 <!-- End of Topbar -->
 
+                <?php
+                require_once "./library/koneksi.php";
+
+                // ambil data siswa
+                $querySiswa = mysqli_query($koneksi, "SELECT nisn, nama_lengkap FROM siswa ORDER BY nama_lengkap ASC");
+
+                //ambil data kelas
+                $queryKelas = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORDER BY nama_kelas ASC");
+                $kelas = mysqli_fetch_assoc($queryKelas); // ambil satu baris data
+                ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-1 text-gray-800">Other Utilities</h1>
-                    <p class="mb-4">Bootstrap's default utility classes can be found on the official <a
-                            href="https://getbootstrap.com/docs">Bootstrap Documentation</a> page. The custom utilities
-                        below were created to extend this theme past the default utility classes built into Bootstrap's
-                        framework.</p>
+                    <!-- Header Page -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <!-- Judul Halaman -->
+                        <h1 class="h3 text-gray-800 mb-0">Tambah SPP Kelas X-A</h1>
 
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <div class="col-lg-6">
-
-                            <!-- Overflow Hidden -->
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Overflow Hidden Utilty</h6>
-                                </div>
-                                <div class="card-body">
-                                    Use <code>.o-hidden</code> to set the overflow property of any element to hidden.
-                                </div>
-                            </div>
-
-                            <!-- Progress Small -->
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Progress Small Utility</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-1 small">Normal Progress Bar</div>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar" role="progressbar" style="width: 75%"
-                                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="mb-1 small">Small Progress Bar</div>
-                                    <div class="progress progress-sm mb-2">
-                                        <div class="progress-bar" role="progressbar" style="width: 75%"
-                                            aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    Use the <code>.progress-sm</code> class along with <code>.progress</code>
-                                </div>
-                            </div>
-
-                            <!-- Dropdown No Arrow -->
-                            <div class="card mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Dropdown - No Arrow</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="dropdown no-arrow mb-4">
-                                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            Dropdown (no arrow)
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                    Add the <code>.no-arrow</code> class alongside the <code>.dropdown</code>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-6">
-
-                            <!-- Roitation Utilities -->
-                            <div class="card">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Rotation Utilities</h6>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div class="bg-primary text-white p-3 rotate-15 d-inline-block my-4">.rotate-15
-                                    </div>
-                                    <hr>
-                                    <div class="bg-primary text-white p-3 rotate-n-15 d-inline-block my-4">.rotate-n-15
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
+                        <!-- Breadcrumb -->
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="nilai-siswa-x-a.php">Data SPP Kelas X-A</a></li>
+                            <li class="breadcrumb-item active">Tambah SPP Kelas X-A</li>
+                        </ol>
                     </div>
 
+                    <!-- Card Form langsung di bawah judul -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Tabel pengisian</h3>
+                        </div>
+                        <form action="proses-tambah-spp-x-a.php" method="POST" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputIDSPP">ID SPP</label>
+                                    <input type="text" name="id_pembayaran" value="<?php echo $id_pembayaran; ?>" class="form-control" id="exampleInputIDSPP" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="NamaSiswa">Nama Siswa</label>
+                                    <select class="custom-select rounded-0" name="nisn" id="NamaSiswa" required>
+                                        <option value="">-- Pilih Nama Siswa --</option>
+                                        <?php while($row = mysqli_fetch_assoc($querySiswa)) { ?>
+                                            <option value="<?php echo $row['nisn']; ?>">
+                                                <?php echo $row['nama_lengkap']; ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kelas</label>
+                                    <input type="text" class="form-control" value="X-A" readonly>
+                                    <input type="hidden" name="id_kelas" value="<?php echo $kelas['id_kelas']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputBulan">Bulan</label>
+                                    <select name="bulan" class="form-control" id="exampleInputBulan" required>
+                                        <option value="">-- Pilih Bulan --</option>
+                                        <option value="Januari">Januari</option>
+                                        <option value="Februari">Februari</option>
+                                        <option value="Maret">Maret</option>
+                                        <option value="April">April</option>
+                                        <option value="Mei">Mei</option>
+                                        <option value="Juni">Juni</option>
+                                        <option value="Juli">Juli</option>
+                                        <option value="Agustus">Agustus</option>
+                                        <option value="September">September</option>
+                                        <option value="Oktober">Oktober</option>
+                                        <option value="November">November</option>
+                                        <option value="Desember">Desember</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputYear">Tahun Ajaran</label>
+                                    <input type="text" name="tahun_ajaran" 
+                                        class="form-control form-control-sm" 
+                                        id="exampleInputYear" 
+                                        placeholder="Contoh: 2024/2025"
+                                        pattern="[0-9]{4}/[0-9]{4}"
+                                        title="Gunakan format 2024/2025"
+                                        style="font-size: 16px;" required> 
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputDate">Tanggal Bayar</label>
+                                    <input type="date" name="tanggal"  class="form-control form-control-sm" id="exampleInputDate" 
+                                        style="font-size: 16px;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleSelect">Status</label>
+                                    <select class="custom-select form-control-sm" 
+                                            name="status" 
+                                            id="exampleSelect" 
+                                            required>
+                                        <option value="" disabled selected>-- Pilih Status --</option>
+                                        <option value="Lunas">Lunas</option>
+                                        <option value="Belum Lunas">Belum Lunas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
@@ -500,6 +628,13 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

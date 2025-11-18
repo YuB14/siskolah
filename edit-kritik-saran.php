@@ -1,48 +1,72 @@
+<?php
+require_once "./library/koneksi.php";
+
+if (isset($_GET['id_kritik_saran'])) {
+    $id_kritik_saran = $_GET['id_kritik_saran'];
+    $query = mysqli_query($koneksi, "
+        SELECT kritik_saran.*, siswa.nama_lengkap 
+        FROM kritik_saran
+        JOIN siswa ON kritik_saran.nisn = siswa.nisn
+        WHERE kritik_saran.id_kritik_saran = '$id_kritik_saran'
+    ");
+
+
+    if (mysqli_num_rows($query) == 0) {
+        echo "<script>alert('Data Kritik & Saran tidak ditemukan!'); window.location='kritik-saran.php';</script>";
+        exit;
+    }
+
+    $data = mysqli_fetch_assoc($query);
+} else {
+    echo "<script>alert('ID Kritik & Saran tidak ditemukan!'); window.location='kritik-saran.php';</script>";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Animation Utilities</title>
+    <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
+    <title>Siskolah - Edit Kritik & Saran</title>
 
-    <!-- Custom fonts for this template-->
+    <!-- Font & Template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900"
         rel="stylesheet">
-
-    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+                <div class="sidebar-brand-icon">
+                    <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Siskolah</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -53,40 +77,39 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Keuangan
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Pemasukan & Pengeluaran -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
+                <a class="nav-link" href="pemasukan-pengeluaran.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Pemasukan & Pengeluaran</span></a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+            <!-- Nav Item - Mata Pelajaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSPP"
+                    aria-expanded="true" aria-controls="collapseSPP">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>SPP</span>
                 </a>
-                <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
+                <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item active" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="spp-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
                     </div>
                 </div>
             </li>
@@ -96,51 +119,173 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Informasi Sekolah
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Menu Kolaborasi Biodata -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBiodata"
+                    aria-expanded="true" aria-controls="collapseBiodata">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Biodata</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseBiodata" class="collapse" aria-labelledby="headingBiodata"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Biodata Pengguna:</h6>
+                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
+                        <a class="collapse-item" href="biodata-guru.php">Guru</a>
+                        <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Nav Item - Kelas -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="kelas.php">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                    <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                <a class="nav-link" href="mata-pelajaran.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mata Pelajaran</span></a>
+            </li>
+            
+            <!-- Nav Item - Jadwal Mata Pelajaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
+                    aria-expanded="true" aria-controls="collapseJadwalMapel">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Jadwal Mata Pelajaran</span>
+                </a>
+                <div id="collapseJadwalMapel" class="collapse" aria-labelledby="headingJadwalMapel" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Absensi Guru -->
+            <li class="nav-item">
+                <a class="nav-link" href="absensi-guru.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Absensi Guru</span></a>
+            </li>
+
+            <!-- Nav Item - Absensi Siswa -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensiSiswa"
+                    aria-expanded="true" aria-controls="collapseAbsensiSiswa">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Absensi Siswa</span>
+                </a>
+                <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="#">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Nilai Siswa -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNilaiSiswa"
+                    aria-expanded="true" aria-controls="collapseNilaiSiswa">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Nilai Siswa</span>
+                </a>
+                <div id="collapseNilaiSiswa" class="collapse" aria-labelledby="headingNilaiSiswa" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelas X :</h6>
+                        <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="#">X B</a>
+                        <a class="collapse-item" href="#">X C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XI :</h6>
+                        <a class="collapse-item" href="#">XI A</a>
+                        <a class="collapse-item" href="#">XI B</a>
+                        <a class="collapse-item" href="#">XI C</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Kelas XII :</h6>
+                        <a class="collapse-item" href="#">XII A</a>
+                        <a class="collapse-item" href="#">XII B</a>
+                        <a class="collapse-item" href="#">XII C</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Masukan
             </div>
+
+            <!-- Nav Item - Pengaduan -->
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Kritik & Saran -->
+                        <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>kritik-saran</span>
+                </a>
+
+                    <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
+                    </div>
+                </div>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->
@@ -150,28 +295,14 @@
 
             <!-- Main Content -->
             <div id="content">
-
+            
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
+                    <button id="sidebarToggleTop" class="btn btn-link p-2 mr-2">
+                        <i class="fa fa-bars fa-lg"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -349,122 +480,78 @@
                                 </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
+                <!-- Main Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-1 text-gray-800">Animation Utilities</h1>
-                    <p class="mb-4">Bootstrap's default utility classes can be found on the official <a
-                            href="https://getbootstrap.com/docs">Bootstrap Documentation</a> page. The custom utilities
-                        below were created to extend this theme past the default utility classes built into Bootstrap's
-                        framework.</p>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Grow In Utility -->
-                        <div class="col-lg-6">
-
-                            <div class="card position-relative">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Grow In Animation Utilty</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <code>.animated--grow-in</code>
-                                    </div>
-                                    <div class="small mb-1">Navbar Dropdown Example:</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <a class="navbar-brand" href="#">Navbar</a>
-                                        <ul class="navbar-nav ml-auto">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                                    role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    Dropdown
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right animated--grow-in"
-                                                    aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <p class="mb-0 small">Note: This utility animates the CSS transform property,
-                                        meaning it will override any existing transforms on an element being animated!
-                                        In this theme, the grow in animation is only being used on dropdowns within the
-                                        navbar.</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Fade In Utility -->
-                        <div class="col-lg-6">
-
-                            <div class="card position-relative">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Fade In Animation Utilty</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3">
-                                        <code>.animated--fade-in</code>
-                                    </div>
-                                    <div class="small mb-1">Navbar Dropdown Example:</div>
-                                    <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                        <a class="navbar-brand" href="#">Navbar</a>
-                                        <ul class="navbar-nav ml-auto">
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                                    role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    Dropdown
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right animated--fade-in"
-                                                    aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                    <div class="small mb-1">Dropdown Button Example:</div>
-                                    <div class="dropdown mb-4">
-                                        <button class="btn btn-primary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            Dropdown
-                                        </button>
-                                        <div class="dropdown-menu animated--fade-in"
-                                            aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                    <p class="mb-0 small">Note: This utility animates the CSS opacity property, meaning
-                                        it will override any existing opacity on an element being animated!</p>
-                                </div>
-                            </div>
-
-                        </div>
-
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 text-gray-800 mb-0">Edit Kritik & Saran</h1>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                            <li class="breadcrumb-item"><a href="kritik-saran.php">Data Kritik & Saran</a></li>
+                            <li class="breadcrumb-item active">Kritik & Saran</li>
+                        </ol>
                     </div>
 
-                </div>
-                <!-- /.container-fluid -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Form Kritik & Saran</h3>
+                        </div>
 
+                        <form action="proses-edit-kritik-saran.php" method="POST" enctype="multipart/form-data">
+                            <div class="card-body">
+
+                                <!-- ID Kritik & saran -->
+                                <input type="hidden" name="id_kritik_saran" value="<?= $data['id_kritik_saran']; ?>">
+
+                                <div class="form-group">
+                                    <label for="nisn">NISN</label>
+                                    <input type="text" name="nisn" id="nisn" class="form-control"
+                                        value="<?= htmlspecialchars($data['nisn']); ?>" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nama_siswa">Nama Siswa</label>
+                                    <input type="text" name="nama_siswa" id="nama_lengkap" class="form-control"
+                                        value="<?= htmlspecialchars($data['nama_lengkap']); ?>" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tanggal">Tanggal </label>
+                                    <input type="date" name="tanggal" id="tanggal"
+                                        class="form-control" value="<?= $data['tanggal']; ?>" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jenis">Jenis</label>
+                                    <select name="jenis" id="jenis" class="form-control" required>
+                                        <option value="">-- Pilih Jenis --</option>
+                                        <option value="Kritik" <?= ($data['jenis'] == 'Kritik') ? 'selected' : ''; ?>>Kritik</option>
+                                        <option value="Saran" <?= ($data['jenis'] == 'Saran') ? 'selected' : ''; ?>>Saran</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="isi">Isi </label>
+                                    <textarea name="isi" id="isi" class="form-control" rows="4" required><?= htmlspecialchars($data['isi']); ?></textarea>
+                                </div>
+                                
+                            </div>
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Simpan Perubahan
+                                </button>
+                                <a href="kritik-saran.php" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Kembali
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            
             </div>
             <!-- End of Main Content -->
 
@@ -518,6 +605,20 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+       
+    <script>
+    document.getElementById('nisn').addEventListener('change', function() {
+        const selected = this.options[this.selectedIndex];
+        document.getElementById('nama_siswa').value = selected.getAttribute('data-nama') || '';
+    });
+    </script>
 
 </body>
 
