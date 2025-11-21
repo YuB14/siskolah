@@ -27,27 +27,27 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
-<!-- DataTables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
-<!-- Buttons extension -->
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
+    <!-- Buttons extension -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css">
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-<!-- Buttons extension JS -->
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
+    <!-- Buttons extension JS -->
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.bootstrap5.min.js"></script>
 
-<!-- File export dependencies -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <!-- File export dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 
 <body id="page-top">
 
@@ -58,7 +58,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon">
                     <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
@@ -70,7 +70,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -101,18 +101,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="spp-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="spp-x-b.php">X B</a>
+                        <a class="collapse-item" href="spp-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="spp-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="spp-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="spp-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="spp-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="spp-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="spp-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -136,7 +136,6 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
                         <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
@@ -168,18 +167,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-b.php">X B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -189,7 +188,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Nilai Siswa
+                Aktivitas Sekolah
             </div>
 
             <!-- Nav Item - Absensi Guru -->
@@ -209,19 +208,19 @@
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="absensi-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="absensi-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII B</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -237,18 +236,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="nilai-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="nilai-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -262,7 +261,7 @@
             </div>
 
             <!-- Nav Item - Pengaduan -->
-            <li class="nav-item">
+             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
                     aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>

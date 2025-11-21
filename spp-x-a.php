@@ -1,3 +1,37 @@
+<?php
+require_once "./library/koneksi.php";
+
+// Ambil id_kelas dari nama kelas X-A
+$queryKelas = mysqli_query($koneksi, "SELECT id_kelas FROM kelas WHERE nama_kelas = 'X-A'");
+$dataKelas  = mysqli_fetch_assoc($queryKelas);
+$id_kelas   = $dataKelas['id_kelas'];
+
+// Ambil siswa berdasarkan id_kelas
+$querySiswa = mysqli_query($koneksi, "
+    SELECT nisn, nama_lengkap 
+    FROM siswa 
+    WHERE id_kelas = '$id_kelas'
+    ORDER BY nama_lengkap ASC
+");
+
+if (!$querySiswa) {
+    die("Query gagal: " . mysqli_error($koneksi));
+}
+
+// Ambil semua data pembayaran untuk siswa di kelas ini
+$queryPembayaran = mysqli_query($koneksi, "
+    SELECT nisn, bulan, status 
+    FROM pembayaran_spp 
+    WHERE nisn IN (SELECT nisn FROM siswa WHERE id_kelas = '$id_kelas')
+    AND status = 'Lunas'
+");
+
+$statusBayarAll = [];
+while ($row = mysqli_fetch_assoc($queryPembayaran)) {
+    $statusBayarAll[$row['nisn']][$row['bulan']] = $row['status'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +60,30 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <style>
+    .lunas {
+        background-color: #28a745 !important;
+        color: white !important;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 5px;
+    }
+    .belum-lunas {
+        background-color: #dc3545 !important;
+        color: white !important;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 5px;
+    }
+    .bulan-label {
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .bulan-label:hover {
+        transform: scale(1.05);
+    }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -37,7 +95,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon">
                     <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
@@ -49,7 +107,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -80,18 +138,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="spp-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="spp-x-b.php">X B</a>
+                        <a class="collapse-item" href="spp-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="spp-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="spp-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="spp-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="spp-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="spp-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="spp-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -115,7 +173,6 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
                         <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
@@ -136,29 +193,29 @@
                     <span>Mata Pelajaran</span></a>
             </li>
 
-            <!-- Nav Item - Mata Pelajaran -->
+            <!-- Nav Item - Jadwal Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMapel"
-                    aria-expanded="true" aria-controls="collapseMapel">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
+                    aria-expanded="true" aria-controls="collapseJadwalMapel">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Jadwal Mata Pelajaran</span>
                 </a>
-                <div id="collapseMapel" class="collapse" aria-labelledby="headingMapel" data-parent="#accordionSidebar">
+                <div id="collapseJadwalMapel" class="collapse" aria-labelledby="headingJadwalMapel" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-b.php">X B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -168,7 +225,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Nilai Siswa
+                Aktivitas Sekolah
             </div>
 
             <!-- Nav Item - Absensi Guru -->
@@ -188,19 +245,19 @@
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="absensi-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="absensi-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII B</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -216,18 +273,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="nilai-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="nilai-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -241,20 +298,38 @@
             </div>
 
             <!-- Nav Item - Pengaduan -->
-            <li class="nav-item">
-                <a class="nav-link" href="pengaduan.php">
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pengaduan</span></a>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Kritik & Saran -->
-            <li class="nav-item">
-                <a class="nav-link" href="kritik-saran.php">
+                        <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Kritik & Saran</span></a>
-            </li>
+                    <span>kritik-saran</span>
+                </a>
 
-            
+                    <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
+                    </div>
+                </div>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->
@@ -470,7 +545,7 @@
 
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
                             <li class="breadcrumb-item active">Data SPP Kelas X-A</li>
                         </ol>
                     </div>
@@ -497,196 +572,94 @@
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <!-- Judul Card -->
                             <h6 class="m-0 font-weight-bold text-primary">Tabel Data SPP Kelas X-A</h6>
-
-                            <!-- Container tombol -->
-                            <div class="d-flex align-items-center">
-                                <!-- Tombol Tambah Kelas -->
-                                <a href="tambah-spp-x-a.php" class="btn btn-sm btn-primary btn-icon-split mr-2 btn-equal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    <span class="text">Tambah SPP</span>
-                                </a>
-
-                                <!-- Tombol Visibility Dropdown -->
-                                <div class="dropdown mr-2">
-                                    <button class="btn btn-sm btn-secondary dropdown-toggle btn-equal align-items-center" type="button" 
-                                            id="dropdownVisibility" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-eye mr-1"></i>
-                                        </span>
-                                        <span class="text">Visibility</span>
-                                    </button>
-                                    <div class="dropdown-menu p-3" aria-labelledby="dropdownVisibility">
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="0" id="colID" checked>
-                                            <label class="form-check-label" for="colID">ID SPP</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="1" id="colName" checked>
-                                            <label class="form-check-label" for="colName">Nama Siswa</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="2" id="colKelas" checked>
-                                            <label class="form-check-label" for="colKelas">Kelas</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="3" id="colBulan" checked>
-                                            <label class="form-check-label" for="colBulan">Bulan</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="4" id="colTahunAjaran" checked>
-                                            <label class="form-check-label" for="colTahunAjaran">Tahun Ajaran</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="5" id="colTanggalBayar" checked>
-                                            <label class="form-check-label" for="colTanggalBayar">Tanggal Bayar</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="6" id="colStatus" checked>
-                                            <label class="form-check-label" for="colStatus">Status</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="7" id="colEdit" checked>
-                                            <label class="form-check-label" for="colEdit">Edit</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input col-toggle" type="checkbox" value="8" id="colHapus" checked>
-                                            <label class="form-check-label" for="colHapus">Hapus</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Dropdown Generate Report -->
-                                <div class="dropdown">
-                                    <a class="btn btn-sm btn-primary dropdown-toggle shadow-sm" href="#" 
-                                        id="dropdownReport" role="button" data-toggle="dropdown" 
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-download fa-sm text-white-50 mr-1"></i> Generate Report
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownReport">
-                                        <a class="dropdown-item export-pdf" href="#">
-                                            <i class="fas fa-file-pdf fa-sm text-danger mr-2"></i> Export PDF
-                                        </a>
-                                        <a class="dropdown-item export-excel" href="#">
-                                            <i class="fas fa-file-excel fa-sm text-success mr-2"></i> Export Excel
-                                        </a>
-                                        <a class="dropdown-item export-csv" href="#">
-                                            <i class="fas fa-file-csv fa-sm text-info mr-2"></i> Export CSV
-                                        </a>
-                                        <a class="dropdown-item export-copy" href="#">
-                                            <i class="fas fa-copy fa-sm text-dark mr-2"></i> Copy
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item export-print" href="#">
-                                            <i class="fas fa-print fa-sm text-primary mr-2"></i> Print
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="card-body">
 
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>ID SPP</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas</th>
-                                            <th>Bulan</th>
-                                            <th>Tahun Ajaran</th>
-                                            <th>Tanggal Bayar</th>
-                                            <th>Status</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
+                            <form method="POST" action="proses-spp-x-a.php">
+                                <input type="hidden" name="id_kelas" value="<?= $id_kelas ?>">
 
-                                    //menampilkan data spp kelas x-a
-                                    $sql = "
-                                        SELECT 
-                                            ps.id_pembayaran,
-                                            s.nama_lengkap,
-                                            k.nama_kelas,
-                                            ps.bulan,
-                                            ps.tahun_ajaran,
-                                            ps.tanggal_bayar,
-                                            ps.status
-                                        FROM pembayaran_spp ps
-                                        INNER JOIN siswa s ON ps.nisn = s.nisn
-                                        INNER JOIN kelas k ON ps.id_kelas = k.id_kelas
-                                        WHERE k.nama_kelas = 'X-A'
-                                    ";
-                                    $query = mysqli_query($koneksi, $sql);
-
-                                   
-                                    while ($result = mysqli_fetch_array($query)) {
-                                        $kode = $result['id_pembayaran'];
-                                    ?>
-
-                                    <tr>
-                                        <td><?php echo $result['id_pembayaran']; ?></td>
-                                        <td><?php echo $result['nama_lengkap']; ?></td>
-                                        <td><?php echo $result['nama_kelas']; ?></td>
-                                        <td><?php echo $result['bulan']; ?></td>
-                                        <td><?php echo $result['tahun_ajaran']; ?></td>
-                                        <td>
-                                        <?= !empty($result['tanggal_bayar']) ? date('d-m-Y', strtotime($result['tanggal_bayar'])) : '-' ?>
-                                        </td>
-                                        <td><?php echo $result['status']; ?></td>
-                                        <td class="text-center">
-                                            <a href="update-spp-x-a.php?id_pembayaran=<?php echo $result['id_pembayaran']; ?>" class="btn btn-sm btn-warning"><i class="fas fa-pencil-alt"></i></a>
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- Tombol hapus yang memicu modal -->
-                                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hapusModal<?php echo $result['id_pembayaran']; ?>">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-
-                                            <!-- Modal Hapus -->
-                                            <div class="modal fade" id="hapusModal<?php echo $result['id_pembayaran']; ?>" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel<?php echo $result['id_pembayaran']; ?>" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">                                                            
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="hapusModalLabel<?php echo $result['id_pembayaran']; ?>">Konfirmasi Hapus</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                        Apakah Anda yakin ingin menghapus data SPP <strong><?php echo $result['nama_lengkap']; ?></strong> pada bulan <strong><?php echo $result['bulan']; ?></strong>?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <a href="hapus-spp-x-a.php?id_pembayaran=<?php echo $result['id_pembayaran']; ?>" class="btn btn-danger">Hapus</a>
-                                                        </div>
-                                                    </div>
+                                <div class="row">
+                                    <!-- PANEL KIRI – DATA SISWA -->
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card shadow p-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="font-weight-bold text-primary mb-0">Cari Siswa</h5>
+                                                <div>
+                                                    <button type="button" id="selectAll" class="btn btn-sm btn-primary">Pilih Semua</button>
+                                                    <button type="button" id="deselectAll" class="btn btn-sm btn-secondary">Batal Semua</button>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                        }
-                                    ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>ID SPP</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas</th>
-                                            <th>Bulan</th>
-                                            <th>Tahun Ajaran</th>
-                                            <th>Tanggal Bayar</th>
-                                            <th>Status</th>
-                                            <th>Edit</th>
-                                            <th>Hapus</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" id="searchSiswa" class="form-control" placeholder="Cari NISN / Nama...">
+                                            </div>
+
+                                            <div class="border rounded p-3" style="max-height: 400px; overflow-y:auto;">
+                                                <?php 
+                                                mysqli_data_seek($querySiswa, 0); // Reset pointer
+                                                while ($row = mysqli_fetch_assoc($querySiswa)) { 
+                                                ?>
+                                                    <div class="card shadow-sm mb-2 siswa-item">
+                                                        <div class="card-body d-flex justify-content-between align-items-center">
+                                                            <div>
+                                                                <strong><?= htmlspecialchars($row['nama_lengkap']); ?></strong><br>
+                                                                <small>NISN: <?= $row['nisn']; ?></small>
+                                                            </div>
+                                                            <div>
+                                                                <input type="checkbox" name="nisn[]" value="<?= $row['nisn']; ?>" class="siswa-checkbox">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
+
+                                            <div class="form-group mt-3">
+                                                <label for="tahunAjaranSelect">Pilih Tahun Ajaran</label>
+                                                <select name="tahun_ajaran" class="custom-select form-control-sm" id="tahunAjaranSelect">
+                                                    <?php
+                                                    $start = 2023;
+                                                    $jumlah = 5;
+                                                    
+                                                    for ($i = 0; $i < $jumlah; $i++) {
+                                                        $th = $start + $i;
+                                                        $next = $th + 1;
+                                                        $selected = ("$th/$next" == $tahunAjaran) ? 'selected' : '';
+                                                        echo "<option value='$th/$next' $selected>$th/$next</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- PANEL KANAN – PILIH BULAN -->
+                                    <div class="col-md-8">
+                                        <div class="card shadow p-3">
+                                            <h5 class="font-weight-bold mb-3 text-primary">Pilih Bulan Pembayaran</h5>
+                                            <small class="text-muted mb-3">Hijau = Lunas, Merah = Belum Lunas, Abu-abu = Dapat dipilih</small>
+
+                                            <div class="row" id="bulanContainer">
+                                                <?php
+                                                $bulan_arr = ["JAN","FEB","MAR","APR","MEI","JUN","JUL","AGU","SEP","OKT","NOV","DES"];
+                                                foreach ($bulan_arr as $b) {
+                                                ?>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="card p-2 bulan-label bg-light" data-bulan="<?= $b ?>">
+                                                        <input type="checkbox" name="bulan[]" value="<?= $b ?>" class="bulan-checkbox">
+                                                        <strong class="ml-2"><?= $b ?></strong>
+                                                    </label>
+                                                </div>
+                                                <?php } ?>
+                                            </div>
+
+                                            <button type="submit" name="simpan" class="btn btn-success btn-block mt-3">
+                                                Simpan Pembayaran
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>    
                         </div>
                     </div>
                 </div>
@@ -802,5 +775,99 @@
         });
     });
     </script>
+
+    <script>
+    // Data status pembayaran dari PHP
+    const statusBayarData = <?= json_encode($statusBayarAll) ?>;
+
+    $(document).ready(function() {
+        // Fungsi update tampilan bulan
+        function updateBulanDisplay() {
+            let selectedNisn = [];
+            
+            // Ambil semua siswa yang dipilih
+            $('.siswa-checkbox:checked').each(function() {
+                selectedNisn.push($(this).val());
+            });
+
+            // Reset semua bulan ke default
+            $('.bulan-label').each(function() {
+                let bulan = $(this).data('bulan');
+                let checkbox = $(this).find('.bulan-checkbox');
+                
+                if (selectedNisn.length === 0) {
+                    // Tidak ada siswa dipilih
+                    $(this).removeClass('lunas belum-lunas').addClass('bg-light');
+                    checkbox.prop('disabled', true).prop('checked', false);
+                    checkbox.show();
+                    $(this).find('strong').text(bulan);
+                } else {
+                    // Cek status pembayaran untuk bulan ini
+                    let semuaLunas = true;
+                    let adaLunas = false;
+                    
+                    selectedNisn.forEach(nisn => {
+                        if (statusBayarData[nisn] && statusBayarData[nisn][bulan] === 'Lunas') {
+                            adaLunas = true;
+                        } else {
+                            semuaLunas = false;
+                        }
+                    });
+                    
+                    if (semuaLunas && adaLunas) {
+                        // Semua siswa sudah lunas
+                        $(this).removeClass('bg-light belum-lunas').addClass('lunas');
+                        checkbox.hide();
+                        $(this).find('strong').html('✔ ' + bulan);
+                    } else if (adaLunas && !semuaLunas) {
+                        // Sebagian lunas, sebagian belum
+                        $(this).removeClass('bg-light lunas').addClass('belum-lunas');
+                        checkbox.prop('disabled', false).show();
+                        $(this).find('strong').text(bulan + ' (Sebagian)');
+                    } else {
+                        // Belum ada yang lunas
+                        $(this).removeClass('lunas').addClass('bg-light belum-lunas');
+                        checkbox.prop('disabled', false).prop('checked', false).show();
+                        $(this).find('strong').text(bulan);
+                    }
+                }
+            });
+        }
+
+        // Event listener untuk checkbox siswa
+        $('.siswa-checkbox').on('change', updateBulanDisplay);
+
+        // Pilih semua siswa
+        $('#selectAll').on('click', function() {
+            $('.siswa-checkbox').prop('checked', true);
+            updateBulanDisplay();
+        });
+
+        // Batal semua siswa
+        $('#deselectAll').on('click', function() {
+            $('.siswa-checkbox').prop('checked', false);
+            updateBulanDisplay();
+        });
+
+        // Pencarian siswa
+        $('#searchSiswa').on('keyup', function() {
+            let filter = this.value.toLowerCase();
+            $('.siswa-item').each(function() {
+                let nama = $(this).find('strong').text().toLowerCase();
+                let nisn = $(this).find('small').text().toLowerCase();
+                
+                if (nama.includes(filter) || nisn.includes(filter)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // Init tampilan
+        updateBulanDisplay();
+    });
+    </script>
+    
 </body>
 </html>

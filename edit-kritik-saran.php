@@ -55,7 +55,7 @@ if (isset($_GET['id_kritik_saran'])) {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon">
                     <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
@@ -67,7 +67,7 @@ if (isset($_GET['id_kritik_saran'])) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -87,7 +87,7 @@ if (isset($_GET['id_kritik_saran'])) {
                     <span>Pemasukan & Pengeluaran</span></a>
             </li>
 
-            <!-- Nav Item - Mata Pelajaran -->
+            <!-- Nav Item - SPP -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSPP"
                     aria-expanded="true" aria-controls="collapseSPP">
@@ -98,18 +98,18 @@ if (isset($_GET['id_kritik_saran'])) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="spp-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="spp-x-b.php">X B</a>
+                        <a class="collapse-item" href="spp-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="spp-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="spp-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="spp-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="spp-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="spp-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="spp-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -133,7 +133,6 @@ if (isset($_GET['id_kritik_saran'])) {
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.php">Admin</a>
                         <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
@@ -153,7 +152,7 @@ if (isset($_GET['id_kritik_saran'])) {
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Mata Pelajaran</span></a>
             </li>
-            
+
             <!-- Nav Item - Jadwal Mata Pelajaran -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
@@ -165,24 +164,29 @@ if (isset($_GET['id_kritik_saran'])) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-b.php">X B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Aktivitas Sekolah
+            </div>
 
             <!-- Nav Item - Absensi Guru -->
             <li class="nav-item">
@@ -201,19 +205,19 @@ if (isset($_GET['id_kritik_saran'])) {
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="absensi-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="absensi-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII B</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -229,18 +233,18 @@ if (isset($_GET['id_kritik_saran'])) {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
                         <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="nilai-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="nilai-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>

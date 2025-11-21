@@ -11,10 +11,7 @@ if (isset($_POST['nisn']) && isset($_POST['status'])) {
                                 VALUES ('$nisn', '$tanggal', '$status', '$keterangan')");
     }
 
-    echo "<script>
-        alert('Absensi berhasil disimpan untuk " . count($_POST['nisn']) . " siswa!');
-        window.location.href='absensi-siswa.php';
-    </script>";
+    header('Location: absensi-siswa-x-a.php?status=added');
 } else {
     echo "<script>
         alert('Silakan pilih minimal satu siswa dan status kehadiran!');

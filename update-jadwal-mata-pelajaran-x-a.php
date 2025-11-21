@@ -78,7 +78,7 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
                 <div class="sidebar-brand-icon">
                     <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
@@ -90,7 +90,7 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -105,34 +105,34 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
 
             <!-- Nav Item - Pemasukan & Pengeluaran -->
             <li class="nav-item">
-                <a class="nav-link" href="pemasukan.php">
+                <a class="nav-link" href="pemasukan-pengeluaran.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Pemasukan & Pengeluaran</span></a>
             </li>
 
             <!-- Nav Item - SPP -->
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSPP"
                     aria-expanded="true" aria-controls="collapseSPP">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Mata Pelajaran</span>
+                    <span>SPP</span>
                 </a>
                 <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="spp-x-a.php">X A</a>
+                        <a class="collapse-item" href="spp-x-b.php">X B</a>
+                        <a class="collapse-item" href="spp-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="spp-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="spp-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="spp-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="spp-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="spp-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="spp-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -156,8 +156,7 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-admin.html">Admin</a>
-                        <a class="collapse-item" href="biodata-guru.html">Guru</a>
+                        <a class="collapse-item" href="biodata-guru.php">Guru</a>
                         <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
                     </div>
                 </div>
@@ -170,36 +169,36 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
                     <span>Kelas</span></a>
             </li>
 
-            <!-- Nav Item - Guru Mapel -->
-            <li class="nav-item">
-                <a class="nav-link" href="guru-mapel.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Guru Mapel</span></a>
-            </li>
-
             <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMapel"
-                    aria-expanded="true" aria-controls="collapseMapel">
+                <a class="nav-link" href="mata-pelajaran.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Mata Pelajaran</span></a>
+            </li>
+
+            <!-- Nav Item - Jadwal Mata Pelajaran -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJadwalMapel"
+                    aria-expanded="true" aria-controls="collapseJadwalMapel">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Mata Pelajaran</span>
+                    <span>Jadwal Mata Pelajaran</span>
                 </a>
-                <div id="collapseMapel" class="collapse" aria-labelledby="headingMapel" data-parent="#accordionSidebar">
+                <div id="collapseJadwalMapel" class="collapse" aria-labelledby="headingJadwalMapel" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-a.php">X A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-b.php">X B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="jadwal-mata-pelajaran-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -209,12 +208,12 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Nilai Siswa
+                Aktivitas Sekolah
             </div>
 
             <!-- Nav Item - Absensi Guru -->
             <li class="nav-item">
-                <a class="nav-link" href="absensi-guru.html">
+                <a class="nav-link" href="absensi-guru.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Absensi Guru</span></a>
             </li>
@@ -229,19 +228,19 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
                 <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="absensi-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="absensi-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="absensi-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII B</a>
+                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -256,19 +255,19 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
                 <div id="collapseNilaiSiswa" class="collapse" aria-labelledby="headingNilaiSiswa" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="#">X A</a>
-                        <a class="collapse-item" href="#">X B</a>
-                        <a class="collapse-item" href="#">X C</a>
+                        <a class="collapse-item" href="nilai-siswa-x-a.php">X A</a>
+                        <a class="collapse-item" href="nilai-siswa-x-b.php">X B</a>
+                        <a class="collapse-item" href="nilai-siswa-x-c.php">X C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="#">XI A</a>
-                        <a class="collapse-item" href="#">XI B</a>
-                        <a class="collapse-item" href="#">XI C</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-a.php">XI A</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-b.php">XI B</a>
+                        <a class="collapse-item" href="nilai-siswa-xi-c.php">XI C</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="#">XII A</a>
-                        <a class="collapse-item" href="#">XII B</a>
-                        <a class="collapse-item" href="#">XII C</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-a.php">XII A</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-b.php">XII B</a>
+                        <a class="collapse-item" href="nilai-siswa-xii-c.php">XII C</a>
                     </div>
                 </div>
             </li>
@@ -282,17 +281,37 @@ $kelasQuery = mysqli_query($koneksi, "SELECT id_kelas, nama_kelas FROM kelas ORD
             </div>
 
             <!-- Nav Item - Pengaduan -->
-            <li class="nav-item">
-                <a class="nav-link" href="pengaduan.html">
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
+                    aria-expanded="false" aria-controls="collapsePengaduan">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pengaduan</span></a>
+                    <span>Pengaduan</span>
+                </a>
+
+                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
+                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
+                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Kritik & Saran -->
-            <li class="nav-item">
-                <a class="nav-link" href="kritik-saran.php">
+                        <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
+                    aria-expanded="false" aria-controls="collapseKritik-saran">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Kritik & Saran</span></a>
+                    <span>kritik-saran</span>
+                </a>
+
+                    <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritk-saran" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Jenis kritik-saran:</h6>
+                        <a class="collapse-item" href="kritik-saran.php">Kritik dan saran</a>
+                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
+                    </div>
+                </div>
             </li>
 
         </ul>

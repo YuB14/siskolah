@@ -1,41 +1,52 @@
 <?php
-require_once './library/koneksi.php';
+require_once "./library/koneksi.php";
 
-// Pastikan ada parameter id_kelas
-if (!isset($_GET['id_kelas'])) {
-    echo "<script>alert('ID Kelas tidak ditemukan!');window.location='kelas.php';</script>";
-    exit;
-}
-
-$id_kelas = $_GET['id_kelas'];
-
+// Pastikan form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nama_kelas = trim($_POST['nama_kelas']);
-    $nip = $_POST['nip'];
 
-    // 1️⃣ Cek apakah nama_kelas sudah dipakai kelas lain
-    $cek = $koneksi->prepare("SELECT COUNT(*) FROM kelas WHERE nama_kelas = ? AND id_kelas != ?");
-    $cek->bind_param("ss", $nama_kelas, $id_kelas);
-    $cek->execute();
-    $cek->bind_result($jumlah);
-    $cek->fetch();
-    $cek->close();
+    // Ambil data dari form
+    $id_kelas   = $_POST['id_kelas'];
+    $nama_kelas = $_POST['nama_kelas'];
+    $nip        = $_POST['nip'];
 
-    if ($jumlah > 0) {
-        echo "<script>alert('Nama kelas \"$nama_kelas\" sudah digunakan oleh kelas lain!');window.location='proses-update-kelas.php?id_kelas=$id_kelas';</script>";
+    // Validasi sederhana
+    if (empty($id_kelas) || empty($nama_kelas) || empty($nip)) {
+        echo "<script>
+                alert('Semua field wajib diisi!');
+                window.location.href='tambah-kelas.php';
+              </script>";
         exit;
     }
 
-    // 2️⃣ Jika aman, lakukan update
-    $update = $koneksi->prepare("UPDATE kelas SET nama_kelas = ?, nip = ? WHERE id_kelas = ?");
-    $update->bind_param("sss", $nama_kelas, $nip, $id_kelas);
+    // Query insert
+    $sql = "INSERT INTO kelas (id_kelas, nama_kelas, nip) VALUES (?, ?, ?)";
+    $stmt = mysqli_prepare($koneksi, $sql);
 
-    if ($update->execute()) {
-        echo "<script>alert('Data kelas berhasil diperbarui!');window.location='kelas.php';</script>";
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "sss", $id_kelas, $nama_kelas, $nip);
+        $execute = mysqli_stmt_execute($stmt);
+
+        if ($execute) {
+            header('Location: kelas.php?status=added');
+        } else {
+            echo "<script>
+                    alert('Gagal menambahkan kelas: " . mysqli_error($koneksi) . "');
+                    window.location.href='tambah-kelas.php';
+                  </script>";
+        }
+
+        mysqli_stmt_close($stmt);
     } else {
-        echo "<script>alert('Gagal memperbarui data: " . addslashes($koneksi->error) . "');</script>";
+        echo "<script>
+                alert('Gagal menyiapkan statement!');
+                window.location.href='tambah-kelas.php';
+              </script>";
     }
-
-    $update->close();
+} else {
+    // Jika file diakses langsung tanpa submit
+    echo "<script>
+            alert('Akses tidak valid!');
+            window.location.href='kelas.php';
+          </script>";
 }
 ?>
