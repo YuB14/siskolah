@@ -1,0 +1,61 @@
+/* Custom layout for DataTables controls */
+.dt-controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Left section: Tambah button + Show entries */
+.dt-left-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Right section: Search */
+.dt-right-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Style untuk DataTables elements */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin: 0;
+    padding: 0;
+}
+
+.dataTables_wrapper .dataTables_length label,
+.dataTables_wrapper .dataTables_filter label {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dt-controls-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .dt-left-section {
+        justify-content: space-between;
+        width: 100%;
+    }
+    
+    .dt-right-section {
+        width: 100%;
+    }
+    
+    .dataTables_wrapper .dataTables_filter {
+        width: 100%;
+    }
+    
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100% !important;
+    }
+}
