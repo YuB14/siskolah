@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Siskolah - Login Siswa</title>
+
+    <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,6 +25,18 @@
 </head>
 
 <body class="bg-gradient-primary">
+
+    <style>
+        .bg-login-image {
+            background-image: url('img/siswa.png');
+            background-size: contain;      /* 🔥 gambar jadi pas */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: white;       /* opsional */
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+        }
+    </style>
 
     <div class="container">
 
@@ -43,30 +57,38 @@
                             <div class="col-lg-6" style="padding: 40px;"> 
                                 <div class="p-5">
                                     <div class="text-center" style="margin-bottom: 60px;">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Login Siswa</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="proses-login-siswa.php" method="POST">
                                         <div class="form-group" style="margin-bottom: 25px;">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="email" 
+                                                class="form-control form-control-user"
+                                                id="exampleInputEmail"
+                                                name="email"
+                                                placeholder="Enter Email Address..."
+                                                required>
                                         </div>
+
                                         <div class="form-group" style="margin-bottom: 20px;">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" 
+                                                class="form-control form-control-user"
+                                                id="exampleInputPassword"
+                                                name="password"
+                                                placeholder="Password"
+                                                required>
                                         </div>
+
                                         <div class="form-group d-flex justify-content-between" style="margin-bottom: 40px;">
-                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                            <!-- Checkbox Show Password -->
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheckShow">
                                                 <label class="custom-control-label" for="customCheckShow">Show Password</label>
                                             </div>
                                         </div>
+
                                         <div class="d-flex justify-content-center form-actions">
-                                            <a href="index.html" class="btn btn-primary btn-user" style="width: 300px;">
+                                            <button type="submit" class="btn btn-primary btn-user" style="width: 300px;">
                                                 Login
-                                            </a>
+                                            </button>
                                         </div>
                                     </form>
                                 </div>

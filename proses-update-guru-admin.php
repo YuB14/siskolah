@@ -2,7 +2,7 @@
 require_once "./library/koneksi.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo "<script>alert('Akses tidak valid!');window.location='biodata-guru.php';</script>";
+    echo "<script>alert('Akses tidak valid!');window.location='biodata-guru-admin.php';</script>";
     exit;
 }
 
@@ -105,7 +105,7 @@ $queryUpdate .= " WHERE nip = '$nip_lama'";
 $update = mysqli_query($koneksi, $queryUpdate);
 
 if ($update) {
-    header("Location: biodata-guru.php?status=updated");
+    header("Location: biodata-guru-admin.php?status=updated");
 } else {
     echo "<script>
             alert('Gagal memperbarui data: " . addslashes(mysqli_error($koneksi)) . "');

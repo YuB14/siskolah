@@ -1,6 +1,7 @@
+<?php include 'auth-siswa.php'; ?>
+
 <?php
 require_once "./library/koneksi.php";
-session_start();
 
 if (!isset($_SESSION['nisn'])) {
     header("Location: login-siswa.html");
@@ -11,12 +12,16 @@ $nisn_login = $_SESSION['nisn'];
 
 // Ambil data siswa login
 $querySiswa = mysqli_query($koneksi, "
-    SELECT nisn, nama_lengkap 
-    FROM siswa 
-    WHERE nisn = '$nisn_login'
+    SELECT 
+        s.nisn,
+        s.nama_lengkap,
+        k.nama_kelas,
+        k.id_kelas
+    FROM siswa s
+    LEFT JOIN kelas k ON s.id_kelas = k.id_kelas
+    WHERE s.nisn = '$nisn_login'
 ");
 
-$dataSiswa = mysqli_fetch_assoc($querySiswa);
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +35,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
     <meta name="author" content="">
 
     <link rel="shortcut icon" href="./img/school-solid-full.svg" type="image/x-icon" />
+
     <title>Siskolah - Tambah Pengaduan</title>
 
     <!-- Font & Template -->
@@ -51,7 +57,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.php">
                 <div class="sidebar-brand-icon">
                     <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
@@ -62,82 +68,11 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">Home</div>
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="dashboard.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">Keuangan</div>
-
-            <!-- Nav Item - Pemasukan & Pengeluaran -->
-            <li class="nav-item">
-                <a class="nav-link" href="pemasukan-pengeluaran.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Pemasukan & Pengeluaran</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - SPP -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSPP"
-                    aria-expanded="true" aria-controls="collapseSPP">
-                    <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>SPP</span>
-                </a>
-                <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="spp-x-a.php">X A</a>
-                        <a class="collapse-item" href="spp-x-b.php">X B</a>
-                        <a class="collapse-item" href="spp-x-c.php">X C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="spp-xi-a.php">XI A</a>
-                        <a class="collapse-item" href="spp-xi-b.php">XI B</a>
-                        <a class="collapse-item" href="spp-xi-c.php">XI C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="spp-xii-a.php">XII A</a>
-                        <a class="collapse-item" href="spp-xii-b.php">XII B</a>
-                        <a class="collapse-item" href="spp-xii-c.php">XII C</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
             <div class="sidebar-heading">Informasi Sekolah</div>
-
-            <!-- Nav Item - Menu Kolaborasi Biodata -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBiodata"
-                    aria-expanded="true" aria-controls="collapseBiodata">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Biodata</span>
-                </a>
-                <div id="collapseBiodata" class="collapse" aria-labelledby="headingBiodata" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-guru.php">Guru</a>
-                        <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Kelas -->
             <li class="nav-item">
-                <a class="nav-link" href="kelas.php">
+                <a class="nav-link" href="kelas-siswa.php">
                     <i class="fas fa-fw fa-school"></i>
                     <span>Kelas</span>
                 </a>
@@ -145,7 +80,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
 
             <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link" href="mata-pelajaran.php">
+                <a class="nav-link" href="mata-pelajaran-siswa.php">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Mata Pelajaran</span>
                 </a>
@@ -153,7 +88,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
 
             <!-- Nav Item - Jadwal Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link" href="jadwal-mata-pelajaran.php">
+                <a class="nav-link" href="jadwal-mata-pelajaran-siswa.php">
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Jadwal Mata Pelajaran</span>
                 </a>
@@ -165,44 +100,17 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
             <!-- Heading -->
             <div class="sidebar-heading">Aktivitas Sekolah</div>
 
-            <!-- Nav Item - Absensi Guru -->
-            <li class="nav-item">
-                <a class="nav-link" href="absensi-guru.php">
-                    <i class="fas fa-fw fa-user-check"></i>
-                    <span>Absensi Guru</span>
-                </a>
-            </li>
-
             <!-- Nav Item - Absensi Siswa -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensiSiswa"
-                    aria-expanded="true" aria-controls="collapseAbsensiSiswa">
+                <a class="nav-link" href="absensi-siswa.php">
                     <i class="fas fa-fw fa-clipboard-check"></i>
                     <span>Absensi Siswa</span>
                 </a>
-                <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
-                        <a class="collapse-item" href="absensi-siswa-x-b.php">X B</a>
-                        <a class="collapse-item" href="absensi-siswa-x-c.php">X C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="absensi-siswa-xi-a.php">XI A</a>
-                        <a class="collapse-item" href="absensi-siswa-xi-b.php">XI B</a>
-                        <a class="collapse-item" href="absensi-siswa-xi-c.php">XI C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII A</a>
-                        <a class="collapse-item" href="absensi-siswa-xii-b.php">XII B</a>
-                        <a class="collapse-item" href="absensi-siswa-xii-c.php">XII C</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Nilai Siswa -->
             <li class="nav-item">
-                <a class="nav-link" href="nilai-siswa.php">
+                <a class="nav-link" href="nilai-siswa-siswa.php">
                     <i class="fas fa-graduation-cap"></i>
                     <span>Nilai Siswa</span>
                 </a>
@@ -210,7 +118,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
 
             <!-- Nav Item - Kenaikan & Kelulusan -->
             <li class="nav-item">
-                <a class="nav-link" href="kenaikan-kelulusan.php">
+                <a class="nav-link" href="kenaikan-kelulusan-siswa.php">
                     <i class="fas fa-fw fa-user-graduate"></i>
                     <span>Kenaikan & Kelulusan</span>
                 </a>
@@ -224,34 +132,18 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
 
             <!-- Nav Item - Pengaduan -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
-                    aria-expanded="false" aria-controls="collapsePengaduan">
+                <a class="nav-link" href="pengaduan-siswa.php">
                     <i class="fas fa-fw fa-exclamation-triangle"></i>
-                    <span>Pengaduan</span>
+                    <span>Pengaduan Siswa</span>
                 </a>
-                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
-                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
-                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Nav Item - Kritik & Saran -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
-                    aria-expanded="false" aria-controls="collapseKritik-saran">
+                <a class="nav-link" href="kritik-saran-siswa.php">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Kritik & Saran</span>
                 </a>
-                <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritik-saran" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Jenis Kritik & Saran:</h6>
-                        <a class="collapse-item" href="kritik-saran.php">Kritik dan Saran</a>
-                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
-                    </div>
-                </div>
             </li>
 
         </ul>
@@ -280,7 +172,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Kepala Sekolah</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Siswa</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -322,8 +214,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
 
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="pengaduan.php">Data Pengaduan</a></li>
+                            <li class="breadcrumb-item active"><a href="pengaduan-siswa.php">Data Pengaduan</a></li>
                             <li class="breadcrumb-item active">Tambah Pengaduan</li>
                         </ol>
                     </div>
@@ -333,7 +224,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
                         <div class="card-header">
                             <h3 class="card-title">Tabel pengisian</h3>
                         </div>
-                        <form action="proses-tambah-pengaduan.php" method="POST" enctype="multipart/form-data">
+                        <form action="proses-tambah-pengaduan-siswa.php" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
 
                                 <div class="row">
@@ -397,7 +288,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-paper-plane"></i> Kirim Pengaduan
                                 </button>
-                                <a href="pengaduan.php" class="btn btn-secondary">
+                                <a href="pengaduan-siswa.php" class="btn btn-secondary">
                                     <i class="fas fa-arrow-left"></i> Kembali
                                 </a>
                             </div>
@@ -434,7 +325,7 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
                 <div class="modal-body">Pilih "Logout" jika anda benar-benar ingin logout.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                    <a class="btn btn-primary" href="logout-siswa.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -461,7 +352,6 @@ $dataSiswa = mysqli_fetch_assoc($querySiswa);
         document.getElementById('nama_siswa').value = nama || '';
     });
     </script>
-
 
 </body>
 </html>

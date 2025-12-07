@@ -955,7 +955,7 @@
                 <div class="modal-body">Pilih "Log Out" di bawah jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Log Out</a>
+                    <a class="btn btn-primary" href="logout.php">Log Out</a>
                 </div>
             </div>
         </div>

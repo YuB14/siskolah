@@ -414,7 +414,7 @@
 
                                 <!-- Card Footer dengan Tombol -->
                                 <div class="card-footer bg-white text-center py-2">
-                                    <a href="update-guru.php?nip=<?= $row['nip'] ?>" 
+                                    <a href="update-guru-admin.php?nip=<?= $row['nip'] ?>" 
                                        class="btn btn-sm btn-warning mr-1" title="Edit Data">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>

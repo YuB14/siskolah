@@ -3,6 +3,25 @@
 
 <head>
 
+    <?php
+    session_start();
+
+    // Jika belum login
+    if (!isset($_SESSION['guru_login'])) {
+        header("Location: login-guru.html");
+        exit;
+    }
+
+    // Ambil jabatan dari session login guru
+    $jabatan = $_SESSION['guru_jabatan']; 
+
+    // Hanya boleh diakses Bendahara
+    if ($jabatan !== 'Admin') {
+        header("Location: login-guru.html");
+        exit;
+    }
+    ?>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,7 +53,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard-admin.php">
                 <div class="sidebar-brand-icon">
                     <img src="./img/school-solid-full.svg" alt="Logo" style="width: 40px; height: 40px;">
                 </div>
@@ -49,51 +68,10 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="dashboard.html">
+                <a class="nav-link" href="dashboard-admin.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">Keuangan</div>
-
-            <!-- Nav Item - Pemasukan & Pengeluaran -->
-            <li class="nav-item">
-                <a class="nav-link" href="pemasukan-pengeluaran.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Pemasukan & Pengeluaran</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - SPP -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSPP"
-                    aria-expanded="true" aria-controls="collapseSPP">
-                    <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>SPP</span>
-                </a>
-                <div id="collapseSPP" class="collapse" aria-labelledby="headingSPP" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="spp-x-a.php">X A</a>
-                        <a class="collapse-item" href="spp-x-b.php">X B</a>
-                        <a class="collapse-item" href="spp-x-c.php">X C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="spp-xi-a.php">XI A</a>
-                        <a class="collapse-item" href="spp-xi-b.php">XI B</a>
-                        <a class="collapse-item" href="spp-xi-c.php">XI C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="spp-xii-a.php">XII A</a>
-                        <a class="collapse-item" href="spp-xii-b.php">XII B</a>
-                        <a class="collapse-item" href="spp-xii-c.php">XII C</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->
@@ -112,15 +90,15 @@
                 <div id="collapseBiodata" class="collapse" aria-labelledby="headingBiodata" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Biodata Pengguna:</h6>
-                        <a class="collapse-item" href="biodata-guru.php">Guru</a>
-                        <a class="collapse-item" href="biodata-siswa.php">Siswa</a>
+                        <a class="collapse-item" href="biodata-guru-admin.php">Guru</a>
+                        <a class="collapse-item" href="biodata-siswa-admin.php">Siswa</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Kelas -->
             <li class="nav-item">
-                <a class="nav-link" href="kelas.php">
+                <a class="nav-link" href="kelas-admin.php">
                     <i class="fas fa-fw fa-school"></i>
                     <span>Kelas</span>
                 </a>
@@ -128,7 +106,7 @@
 
             <!-- Nav Item - Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link" href="mata-pelajaran.php">
+                <a class="nav-link" href="mata-pelajaran-admin.php">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Mata Pelajaran</span>
                 </a>
@@ -136,7 +114,7 @@
 
             <!-- Nav Item - Jadwal Mata Pelajaran -->
             <li class="nav-item">
-                <a class="nav-link" href="jadwal-mata-pelajaran.php">
+                <a class="nav-link" href="jadwal-mata-pelajaran-admin.php">
                     <i class="fas fa-fw fa-calendar"></i>
                     <span>Jadwal Mata Pelajaran</span>
                 </a>
@@ -150,91 +128,10 @@
 
             <!-- Nav Item - Absensi Guru -->
             <li class="nav-item">
-                <a class="nav-link" href="absensi-guru.php">
+                <a class="nav-link" href="absensi-guru-admin.php">
                     <i class="fas fa-fw fa-user-check"></i>
                     <span>Absensi Guru</span>
                 </a>
-            </li>
-
-            <!-- Nav Item - Absensi Siswa -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensiSiswa"
-                    aria-expanded="true" aria-controls="collapseAbsensiSiswa">
-                    <i class="fas fa-fw fa-clipboard-check"></i>
-                    <span>Absensi Siswa</span>
-                </a>
-                <div id="collapseAbsensiSiswa" class="collapse" aria-labelledby="headingAbsensiSiswa" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Kelas X :</h6>
-                        <a class="collapse-item" href="absensi-siswa-x-a.php">X A</a>
-                        <a class="collapse-item" href="absensi-siswa-x-b.php">X B</a>
-                        <a class="collapse-item" href="absensi-siswa-x-c.php">X C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XI :</h6>
-                        <a class="collapse-item" href="absensi-siswa-xi-a.php">XI A</a>
-                        <a class="collapse-item" href="absensi-siswa-xi-b.php">XI B</a>
-                        <a class="collapse-item" href="absensi-siswa-xi-c.php">XI C</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Kelas XII :</h6>
-                        <a class="collapse-item" href="absensi-siswa-xii-a.php">XII A</a>
-                        <a class="collapse-item" href="absensi-siswa-xii-b.php">XII B</a>
-                        <a class="collapse-item" href="absensi-siswa-xii-c.php">XII C</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Nilai Siswa -->
-            <li class="nav-item">
-                <a class="nav-link" href="nilai-siswa.php">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>Nilai Siswa</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Kenaikan & Kelulusan -->
-            <li class="nav-item">
-                <a class="nav-link" href="kenaikan-kelulusan.php">
-                    <i class="fas fa-fw fa-user-graduate"></i>
-                    <span>Kenaikan & Kelulusan</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">Masukan</div>
-
-            <!-- Nav Item - Pengaduan -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengaduan"
-                    aria-expanded="false" aria-controls="collapsePengaduan">
-                    <i class="fas fa-fw fa-exclamation-triangle"></i>
-                    <span>Pengaduan</span>
-                </a>
-                <div id="collapsePengaduan" class="collapse" aria-labelledby="headingPengaduan" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Jenis Pengaduan:</h6>
-                        <a class="collapse-item" href="pengaduan.php">Pengaduan Siswa</a>
-                        <a class="collapse-item" href="pengaduan-guru.php">Pengaduan Guru</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Kritik & Saran -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKritik-saran"
-                    aria-expanded="false" aria-controls="collapseKritik-saran">
-                    <i class="fas fa-fw fa-comments"></i>
-                    <span>Kritik & Saran</span>
-                </a>
-                <div id="collapseKritik-saran" class="collapse" aria-labelledby="headingKritik-saran" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Jenis Kritik & Saran:</h6>
-                        <a class="collapse-item" href="kritik-saran.php">Kritik dan Saran</a>
-                        <a class="collapse-item" href="tanggapan-kritik-saran.php">Tanggapan Kritik & Saran</a>
-                    </div>
-                </div>
             </li>
 
         </ul>
@@ -263,7 +160,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Kepala Sekolah</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -301,7 +198,7 @@
                 // pastikan ada param, contoh: edit-guru.php?nip=1234567890
                 if (!isset($_GET['nip'])) {
                     // redirect atau tampilkan error
-                    header('Location: biodata-guru.php');
+                    header('Location: biodata-guru-admin.php');
                     exit;
                 }
 
@@ -309,7 +206,7 @@
                 $q = mysqli_query($koneksi, "SELECT * FROM guru WHERE nip = '$nip' LIMIT 1");
                 if (!$q || mysqli_num_rows($q) == 0) {
                     // tidak ditemukan
-                    header('Location: biodata-guru.php?msg=notfound');
+                    header('Location: biodata-guru-admin.php?msg=notfound');
                     exit;
                 }
                 $row = mysqli_fetch_assoc($q);
@@ -324,8 +221,8 @@
 
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="biodata-guru.php">Data Biodata Guru</a></li>
+                            <li class="breadcrumb-item"><a href="dashboard-admin.php">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="biodata-guru-admin.php">Data Biodata Guru</a></li>
                             <li class="breadcrumb-item active">Update Guru</li>
                         </ol>
                     </div>
@@ -335,7 +232,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Tabel pengisian</h3>
                         </div>
-                        <form action="proses-update-guru.php" method="POST" enctype="multipart/form-data">
+                        <form action="proses-update-guru-admin.php" method="POST" enctype="multipart/form-data">
                             <div class="card-body">
                                 <!-- Hidden field: simpan nip lama (kunci) -->
                                 <input type="hidden" name="nip_lama" value="<?php echo htmlspecialchars($row['nip']); ?>">
@@ -497,8 +394,8 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                    <!-- tombol submit -->
-                                    <button type="update" name="update" class="btn btn-primary">Update</button>
+                                <!-- tombol submit -->
+                                <button type="update" name="update" class="btn btn-primary">Update</button>
                             </div>    
                         </form>
                     </div>
