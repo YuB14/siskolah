@@ -1,13 +1,19 @@
 <?php
-require_once "./library/koneksi.php";
 session_start();
+require_once "./library/koneksi.php";
 
-if (!isset($_SESSION['nip'])) {
+if (!isset($_SESSION['guru_login']) || !isset($_SESSION['guru_nip'])) {
     header("Location: login-guru.html");
     exit;
 }
 
-$nip_login = $_SESSION['nip'];
+$nip_login = $_SESSION['guru_nip'];
+$jabatan   = $_SESSION['guru_jabatan'];
+
+if ($jabatan !== 'Kepala Sekolah') {
+    header("Location: login-guru.html");
+    exit;
+}
 
 // Ambil data guru login
 $queryGuru = mysqli_query($koneksi, "
@@ -23,6 +29,7 @@ $dataGuru = mysqli_fetch_assoc($queryGuru);
 <html lang="en">
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
